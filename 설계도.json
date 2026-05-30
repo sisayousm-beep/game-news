@@ -1,0 +1,543 @@
+# Game Daily Briefing Hub - 프로젝트 설계서
+
+## 프로젝트 개요
+
+Game Daily Briefing Hub는 게임 관련 최신 정보를 하루 1회 자동 수집하고 AI를 이용하여 핵심 내용만 정리해 제공하는 뉴스 브리핑 플랫폼이다.
+
+실시간 뉴스 서비스가 아니라 "하루 한 번 읽는 게임 신문"을 목표로 한다.
+
+---
+
+# 목표
+
+매일 오전 8시 기준으로:
+
+* 최신 뉴스
+* 최근 주요 사건
+* 예정된 이벤트
+* 커뮤니티 반응
+* 할인 정보
+
+를 자동으로 수집 및 요약한다.
+
+---
+
+# 핵심 기능
+
+## 1. 게임 뉴스 브리핑
+
+게임별로 하루 1회 브리핑 생성
+
+포함 항목
+
+* 최신 공식 뉴스
+* 패치노트
+* 신규 캐릭터
+* 이벤트 공지
+* 방송 정보
+* 로드맵 발표
+* 인터뷰
+* 콜라보
+
+---
+
+## 2. 주요 사건 감지
+
+AI가 자동 분석
+
+예시
+
+* 유출 사건
+* 밸런스 논란
+* 대규모 버그
+* 매출 이슈
+* 운영 관련 논쟁
+* 신규 컨텐츠 반응
+
+---
+
+## 3. 이벤트 캘린더
+
+예정된 일정 추출
+
+예시
+
+* 점검
+* 업데이트
+* 방송
+* 오프라인 행사
+* 콜라보
+* 시즌 종료
+
+---
+
+## 4. 커뮤니티 반응 분석
+
+수집한 게시글을 기반으로
+
+* 긍정
+* 중립
+* 부정
+
+비율 분석
+
+주요 의견 추출
+
+---
+
+## 5. 스팀 할인 추적
+
+관심 게임 가격 변동 추적
+
+* 현재 가격
+* 할인율
+* 최저가 여부
+* 할인 종료일
+
+---
+
+# 대상 게임
+
+## 필수 수집 대상
+
+### 블루 아카이브
+
+국내: 메인
+일본: 미래시, 미래 정보
+
+### 승리의 여신 니케
+
+### 명일방주
+
+### 붕괴: 스타레일
+
+### 명조
+
+### 듀엣 나이트 어비스
+
+### 실버펠리스
+
+### 브라운더스트2
+
+---
+
+## 확장 가능 대상
+
+### 젠레스 존 제로
+
+### 원신
+
+### 소녀전선2
+
+### 트릭컬
+
+### 에테르 게이저
+
+### 무기미도
+
+### 카운터사이드
+
+---
+
+# 스팀 할인 추적 대상
+
+## 최우선 추적
+
+* Sid Meier's Civilization VI
+* Sid Meier's Civilization VII
+* NieR:Automata
+* Balatro
+* DJMAX RESPECT V
+* Dave the Diver
+* Metaphor: ReFantazio
+* Split Fiction
+* Monster Hunter Wilds
+* Baldur's Gate 3
+* Clair Obscur: Expedition 33
+* Stellar Blade
+* Core Keeper
+* Factorio
+* Crimson Desert
+* Pragmata
+
+---
+
+# 수집 대상
+
+## 공식 사이트
+
+우선순위 최고
+
+수집 정보
+
+* 공지사항
+* 업데이트
+* 이벤트
+* 점검
+* 개발자 노트
+* 패치노트
+
+---
+
+## 공식 X 계정
+
+수집 정보
+
+* 공지
+* 방송 예고
+* 이벤트
+* 긴급 공지
+
+---
+
+## 아카라이브
+
+대상 채널
+
+게임별 채널
+
+수집 정보
+
+* 인기글
+* 추천글
+* 개념글 수준 게시물
+* 유출 관련 이슈
+
+---
+
+## 디시인사이드
+
+대상 갤러리
+
+게임별 갤러리
+
+수집 정보
+
+* 개념글
+* 추천글
+* 화제글
+
+---
+
+## Steam Store
+
+수집 정보
+
+* 가격
+* 할인율
+* 역대 최저가 여부
+* 할인 종료일
+
+---
+
+# 수집 주기
+
+## 매일
+
+08:00
+
+뉴스 수집 시작
+
+---
+
+## 수집 순서
+
+1. 공식 사이트
+2. 공식 X
+3. Steam
+4. 아카라이브
+5. 디시인사이드
+
+---
+
+# AI 분석
+
+사용 모델
+
+Claude API
+
+---
+
+## 분석 1
+
+중복 제거
+
+예시
+
+공식 공지가
+
+* X
+* 디시
+* 아카
+
+에서 반복되어도 하나의 뉴스로 병합
+
+---
+
+## 분석 2
+
+핵심 뉴스 추출
+
+최대 10개
+
+---
+
+## 분석 3
+
+주요 사건 추출
+
+최대 5개
+
+---
+
+## 분석 4
+
+예정 이벤트 추출
+
+날짜 기반 정리
+
+---
+
+## 분석 5
+
+커뮤니티 반응 요약
+
+예시
+
+긍정:
+신규 캐릭터 디자인 호평
+
+부정:
+보상 감소 논란
+
+---
+
+# 웹 기능
+
+## 메인 페이지
+
+오늘의 게임 브리핑
+
+---
+
+## 게임별 페이지
+
+예시
+
+/game/bluearchive
+
+/game/nikke
+
+/game/arknights
+
+---
+
+## 할인 페이지
+
+/steam-sales
+
+---
+
+## 이벤트 캘린더
+
+/calendar
+
+---
+
+## 검색
+
+제목 검색
+
+본문 검색
+
+태그 검색
+
+---
+
+## 아카이브
+
+날짜별 조회
+
+예시
+
+/2026/05/30
+
+---
+
+# DB 설계
+
+## games
+
+```sql
+id
+name
+slug
+created_at
+```
+
+## articles
+
+```sql
+id
+game_id
+source
+title
+url
+published_at
+summary
+importance_score
+created_at
+```
+
+## events
+
+```sql
+id
+game_id
+title
+start_date
+end_date
+source_url
+created_at
+```
+
+## discussions
+
+```sql
+id
+game_id
+topic
+sentiment
+summary
+created_at
+```
+
+## steam_games
+
+```sql
+id
+name
+steam_appid
+created_at
+```
+
+## steam_prices
+
+```sql
+id
+game_id
+price
+discount_percent
+is_historical_low
+captured_at
+```
+
+---
+
+# 기술 스택
+
+## Frontend
+
+Next.js App Router
+
+TypeScript
+
+TailwindCSS
+
+shadcn/ui
+
+---
+
+## Backend
+
+FastAPI
+
+Python
+
+---
+
+## Database
+
+PostgreSQL
+
+---
+
+## Cache
+
+Redis
+
+---
+
+## AI
+
+Claude API
+
+---
+
+## Scheduler
+
+Cron
+
+또는
+
+APScheduler
+
+---
+
+## Deployment
+
+Docker Compose
+
+---
+
+# 디렉토리 구조
+
+```text
+project/
+
+├─ frontend/
+│
+├─ backend/
+│
+├─ crawler/
+│
+├─ ai/
+│
+├─ database/
+│
+├─ docker/
+│
+├─ docs/
+│
+└─ docker-compose.yml
+```
+
+---
+
+# 일일 결과 예시
+
+블루 아카이브
+
+최신 뉴스
+
+* 신규 이벤트 발표
+* 신규 학생 공개
+
+주요 사건
+
+* 신규 총력전 논란
+
+예정 이벤트
+
+* 6월 3일 점검
+* 6월 5일 방송
+
+커뮤니티 반응
+
+* 긍정 62%
+* 중립 25%
+* 부정 13%
+
+AI 요약
+
+오늘 블루 아카이브는 신규 이벤트 발표가 가장 큰 화제였다. 신규 학생 공개에 대한 반응은 긍정적이며, 총력전 변경안에 대해서는 일부 논란이 존재한다. 다음 주요 일정은 6월 3일 업데이트 점검이다.
