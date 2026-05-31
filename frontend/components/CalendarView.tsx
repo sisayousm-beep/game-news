@@ -91,7 +91,8 @@ export default function CalendarView({ events }: { events: EventItem[] }) {
                 <div className="cal-evts">
                   {(byDay[c.iso] || []).map((e, j) => (
                     <span key={j} className={"cal-evt " + typeClass(e.type)} title={`${e.game ?? ""} · ${e.title}`}>
-                      <b>{e.game}</b> {e.title}
+                      <span className="cal-evt-game">{e.game}</span>
+                      <span className="cal-evt-title">{e.title}</span>
                     </span>
                   ))}
                 </div>
