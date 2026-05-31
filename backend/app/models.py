@@ -61,6 +61,7 @@ class Article(Base):
     tag: Mapped[str] = mapped_column(String(32), default="뉴스")
     time_label: Mapped[str] = mapped_column(String(32), default="")  # "07:42"
     summary: Mapped[str] = mapped_column(Text, default="")
+    image: Mapped[str] = mapped_column(Text, default="")  # 기사 키 비주얼 (없으면 게임 대표 이미지)
     importance_score: Mapped[int] = mapped_column(Integer, default=50)
     published_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
@@ -93,6 +94,7 @@ class GameBrief(Base):
     issue_id: Mapped[int] = mapped_column(ForeignKey("issues.id"), index=True)
     game_id: Mapped[int] = mapped_column(ForeignKey("games.id"), index=True)
     summary: Mapped[str] = mapped_column(Text, default="")
+    image: Mapped[str] = mapped_column(Text, default="")  # 게임 대표 키 비주얼
     sent_pos: Mapped[int] = mapped_column(Integer, default=0)
     sent_neu: Mapped[int] = mapped_column(Integer, default=0)
     sent_neg: Mapped[int] = mapped_column(Integer, default=0)

@@ -62,7 +62,7 @@ def ingest(
             continue
         db.add(
             m.GameBrief(
-                issue_id=issue.id, game_id=g.id, summary=ig.summary,
+                issue_id=issue.id, game_id=g.id, summary=ig.summary, image=ig.image,
                 sent_pos=ig.sentiment.pos, sent_neu=ig.sentiment.neu, sent_neg=ig.sentiment.neg,
             )
         )
@@ -70,7 +70,9 @@ def ingest(
             db.add(
                 m.Article(
                     game_id=g.id, issue_id=issue.id, source=a.source, title=a.title, url=a.url,
-                    tag=a.tag, time_label=a.time, summary=a.summary, importance_score=a.imp,
+                    tag=a.tag, time_label=a.time, summary=a.summary,
+                    image=(a.image or ig.image),  # 기사 전용 이미지 없으면 게임 대표 키비주얼
+                    importance_score=a.imp,
                 )
             )
         # 이벤트는 게임별로 교체(중복 누적 방지)

@@ -38,7 +38,7 @@ export function SentimentBar({ s, size = "sm" }: { s: Sentiment; size?: "sm" | "
   );
 }
 
-export function NewsItem({ a }: { a: Article }) {
+export function NewsItem({ a, onOpen }: { a: Article; onOpen?: (a: Article) => void }) {
   const big = a.imp >= 85;
   const inner = (
     <>
@@ -54,8 +54,20 @@ export function NewsItem({ a }: { a: Article }) {
           {big && <span className="imp-flag mono">중요</span>}
         </span>
       </span>
+      {a.image && (
+        <span className="news-thumb">
+          <img src={a.image} alt="" referrerPolicy="no-referrer" loading="lazy" />
+        </span>
+      )}
     </>
   );
+  if (onOpen) {
+    return (
+      <button className="news-item" onClick={() => onOpen(a)}>
+        {inner}
+      </button>
+    );
+  }
   return a.url ? (
     <a className="news-item" href={a.url} target="_blank" rel="noreferrer">{inner}</a>
   ) : (

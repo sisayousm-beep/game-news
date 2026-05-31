@@ -17,13 +17,14 @@
   "games": [
     {
       "slug": "wuwa",
+      "image": "https://static.inven.co.kr/column/2026/05/07/news/i1426536532.jpg",
       "summary": "명조는 2주년 버전 3.3가 호평 속에 진행 중이며, 6월 10일 버전 3.4에서 ‘사이버펑크: 엣지러너스’ 콜라보(루시·레베카)가 확정돼 기대가 매우 높다. 무료 별의 소리 대규모 배포도 분위기를 끌어올렸다.",
       "sentiment": { "pos": 71, "neu": 20, "neg": 9 },
       "news": [
-        { "source": "공식", "title": "버전 3.4 ‘사이버펑크: 엣지러너스’ 콜라보 트레일러 공개 — 6월 10일 루시·레베카 참전", "url": "https://www.inven.co.kr/webzine/news/?news=316188", "tag": "콜라보", "time": "07:50", "imp": 92 },
-        { "source": "공식", "title": "2주년 버전 3.3 ‘별바다의 끝에서 닿은 메아리’ 진행 — 신규 5성 히유키·데니아", "url": "https://namu.wiki/w/명조: 워더링 웨이브", "tag": "이벤트", "time": "07:10", "imp": 82 },
-        { "source": "공식", "title": "역대 최대 규모 무료 ‘별의 소리’ 배포 진행", "url": "https://wutheringwaves.kurogames.com/kr/main", "tag": "이벤트", "time": "06:30", "imp": 70 },
-        { "source": "공식", "title": "신규 지역 ‘어둠의 평원’·제3장 후반 스토리 추가", "url": "https://namu.wiki/w/명조: 워더링 웨이브", "tag": "로드맵", "time": "05:40", "imp": 66 }
+        { "source": "공식", "title": "버전 3.4 ‘사이버펑크: 엣지러너스’ 콜라보 트레일러 공개 — 6월 10일 루시·레베카 참전", "url": "https://www.inven.co.kr/webzine/news/?news=316188", "tag": "콜라보", "time": "07:50", "imp": 92, "summary": "쿠로게임즈가 6월 10일 출시되는 버전 3.4에서 넷플릭스 애니메이션 ‘사이버펑크: 엣지러너스’와의 첫 크로스오버 콜라보를 공개했다. 트레일러에는 루시·레베카·데이비드가 등장하며, 레베카는 이벤트 기간 접속 시 무료로 배포된다. 한정 콜라보 캐릭터 루시(쿠시나다 루시나·회절 메인 딜러)는 전용 배너로 등장하고, 픽업 순서 등 세부 정보는 6월 중 추가 공개될 예정이다." },
+        { "source": "공식", "title": "2주년 버전 3.3 ‘별바다의 끝에서 닿은 메아리’ 진행 — 신규 5성 히유키·데니아", "url": "https://namu.wiki/w/명조: 워더링 웨이브", "tag": "이벤트", "time": "07:10", "imp": 82, "summary": "출시 2주년 기념 버전 3.3 ‘별바다의 끝에서 닿은 메아리’가 4월 30일부터 약 39일간 진행 중이다. 신규 5성 공명자 히유키와 데니아가 1·2페이즈로 나뉘어 등장하며, 신규 지역과 제3장 후반부 메인 스토리가 함께 추가됐다." },
+        { "source": "공식", "title": "역대 최대 규모 무료 ‘별의 소리’ 배포 진행", "url": "https://wutheringwaves.kurogames.com/kr/main", "tag": "이벤트", "time": "06:30", "imp": 70, "summary": "2주년을 맞아 역대 최대 규모의 무료 ‘별의 소리(가챠 재화)’ 배포가 진행 중이다. 넉넉한 보상에 복귀·신규 유저 유입이 늘면서 커뮤니티 분위기가 우호적이다." },
+        { "source": "공식", "title": "신규 지역 ‘어둠의 평원’·제3장 후반 스토리 추가", "url": "https://namu.wiki/w/명조: 워더링 웨이브", "tag": "로드맵", "time": "05:40", "imp": 66, "summary": "버전 3.3에서 신규 탐험 지역 ‘어둠의 평원’과 제3장 후반부 메인 스토리가 공개됐다. 세계관 확장과 함께 신규 지역 탐사 보상이 제공된다." }
       ],
       "events": [
         { "title": "버전 3.4 + 사이버펑크 콜라보 출시", "start_date": "2026-06-10", "type": "업데이트", "source_url": "https://www.inven.co.kr/webzine/news/?news=316188" }
@@ -36,16 +37,17 @@
     },
     {
       "slug": "starrail",
+      "image": "https://hngameguide.com/wp-content/uploads/2026/04/hsr-43-mortenax-blade-featured.jpg",
       "summary": "스타레일은 4.2 후반 신규 5성 ‘에반시아’ 픽업과 함께, 4.4 ‘Fate’ 콜라보(길가메시·토오사카 린) 예고로 떠들썩하다. 콜라보 기대감과 파워 인플레이션·수익화 우려가 공존한다.",
       "sentiment": { "pos": 52, "neu": 28, "neg": 20 },
       "news": [
-        { "source": "공식", "title": "4.4 버전 ‘Fate’ 콜라보 — 길가메시·토오사카 린 참전 예고", "url": "https://game8.co/games/Honkai-Star-Rail/archives/408381", "tag": "콜라보", "time": "07:35", "imp": 90 },
-        { "source": "공식", "title": "4.2 2페이즈 신규 5성 ‘에반시아’ 픽업 진행 (~6/2)", "url": "https://game8.co/games/Honkai-Star-Rail/archives/408381", "tag": "신규캐릭터", "time": "06:50", "imp": 80 },
-        { "source": "공식", "title": "4.3 신규 5성 ‘모르테낙스 블레이드’ 6월 초 등장 예고", "url": "https://game8.co/games/Honkai-Star-Rail/archives/415899", "tag": "로드맵", "time": "05:55", "imp": 72 }
+        { "source": "공식", "title": "4.4 버전 ‘Fate’ 콜라보 — 길가메시·토오사카 린 참전 예고", "url": "https://game8.co/games/Honkai-Star-Rail/archives/408381", "tag": "콜라보", "time": "07:35", "imp": 90, "summary": "‘Fate/stay night [Unlimited Blade Works]’ 콜라보 2차 웨이브로 길가메시와 토오사카 린이 플레이어블 캐릭터로 등장한다. 콜라보 기간 로그인 시 아처 또는 길가메시 중 하나를 무료로 수령할 수 있어 기대가 크다. 각 캐릭터 전용 광추(무기)도 함께 제공된다." },
+        { "source": "공식", "title": "4.2 2페이즈 신규 5성 ‘에반시아’ 픽업 진행 (~6/2)", "url": "https://game8.co/games/Honkai-Star-Rail/archives/408381", "tag": "신규캐릭터", "time": "06:50", "imp": 80, "summary": "4.2 버전 2페이즈 신규 5성 ‘에반시아’(물리·환락) 픽업이 5월 13일부터 6월 2일까지 진행된다. 신규 메커니즘과 함께 환락 계열 빌드의 폭을 넓힌다는 평가다." },
+        { "source": "공식", "title": "4.3 신규 5성 ‘모르테낙스 블레이드’ 6월 초 등장 예고", "url": "https://game8.co/games/Honkai-Star-Rail/archives/415899", "tag": "로드맵", "time": "05:55", "imp": 72, "summary": "4.3 버전 신규 5성 ‘모르테낙스 블레이드’(화염·공허)가 6월 초 등장 예정이다. 공허 메타 재편이 예상되며, 4.3은 6월 3일 출시로 알려졌다." }
       ],
       "events": [
         { "title": "에반시아 픽업 종료", "start_date": "2026-06-02", "type": "이벤트", "source_url": "https://game8.co/games/Honkai-Star-Rail/archives/408381" },
-        { "title": "4.3 버전 업데이트", "start_date": "2026-06-02", "type": "업데이트", "source_url": "https://game8.co/games/Honkai-Star-Rail/archives/415899" }
+        { "title": "4.3 버전 업데이트", "start_date": "2026-06-03", "type": "업데이트", "source_url": "https://game8.co/games/Honkai-Star-Rail/archives/415899" }
       ],
       "incidents": [
         { "title": "파워 인플레이션·콜라보 수익화 부정 여론", "severity": "주의" }
@@ -57,13 +59,14 @@
     },
     {
       "slug": "nikke",
+      "image": "https://static.inven.co.kr/column/2026/04/23/news/i1975260356.jpg",
       "summary": "니케는 3.5주년 업데이트가 이어지며 분위기가 좋다. 풀보이스 스토리 ‘STAR ANIS’와 무료 SSR 배포가 호평받았고, 오버스펙 SSR ‘아니스: 스타’ 픽업이 마무리됐다.",
       "sentiment": { "pos": 68, "neu": 22, "neg": 10 },
       "news": [
-        { "source": "공식", "title": "3.5주년 풀보이스 스토리 이벤트 ‘STAR ANIS’ 진행", "url": "https://nikke.inven.co.kr/", "tag": "이벤트", "time": "07:25", "imp": 80 },
-        { "source": "공식", "title": "오버스펙 SSR ‘아니스: 스타’ 픽업 종료 — 성능 호평", "url": "https://namu.wiki/w/승리의 여신: 니케", "tag": "신규캐릭터", "time": "06:40", "imp": 76 },
-        { "source": "공식", "title": "아니스·네온 이격(버스트) 추가", "url": "https://namu.wiki/w/승리의 여신: 니케", "tag": "신규캐릭터", "time": "05:30", "imp": 68 },
-        { "source": "공식", "title": "3.5주년 무료 SSR 배포·로그인 보상 진행", "url": "https://nikke.inven.co.kr/", "tag": "이벤트", "time": "04:50", "imp": 64 }
+        { "source": "공식", "title": "3.5주년 풀보이스 스토리 이벤트 ‘STAR ANIS’ 진행", "url": "https://nikke.inven.co.kr/", "tag": "이벤트", "time": "07:25", "imp": 80, "summary": "레벨 인피니트가 3.5주년을 맞아 4월 23일 대규모 업데이트를 실시했다. 아이돌을 메인 컨셉으로 한 풀보이스 스토리 이벤트 ‘STAR ANIS’가 전개되며, 방주 아이돌 T.T STAR의 컴백 무대와 카운터스 스쿼드의 성장을 그린다." },
+        { "source": "공식", "title": "오버스펙 SSR ‘아니스: 스타’ 픽업 종료 — 성능 호평", "url": "https://namu.wiki/w/승리의 여신: 니케", "tag": "신규캐릭터", "time": "06:40", "imp": 76, "summary": "확장 무장을 장착해 강력해진 오버스펙 SSR ‘아니스: 스타’ 특별 모집이 진행됐다. 파티 구조에 따라 활용도가 갈리는 핵심 캐릭터로, 성능 평가가 높았다." },
+        { "source": "공식", "title": "아니스·네온 이격(버스트) 추가", "url": "https://namu.wiki/w/승리의 여신: 니케", "tag": "신규캐릭터", "time": "05:30", "imp": 68, "summary": "‘아니스: 스타’와 함께 전용 바디로 화력을 끌어올린 ‘네온: 비전 아이’ 등 이격 캐릭터가 추가됐다. 기존 캐릭터의 재평가로 이어졌다." },
+        { "source": "공식", "title": "3.5주년 무료 SSR 배포·로그인 보상 진행", "url": "https://nikke.inven.co.kr/", "tag": "이벤트", "time": "04:50", "imp": 64, "summary": "3.5주년 기념으로 게임 플레이를 통한 160회 이상의 무료 모집 기회와 무료 SSR 니케, 풍성한 로그인 보상이 제공됐다." }
       ],
       "events": [],
       "incidents": [],
@@ -73,13 +76,14 @@
     },
     {
       "slug": "arknights",
+      "image": "https://static.inven.co.kr/column/2026/04/13/news/i1718501370.jpg",
       "summary": "명일방주는 신규 이벤트 ‘막을 여는 자들’과 신규 6성 오퍼레이터들이 화제다. 신작 ‘엔드필드’는 ‘봄날의 새벽’ 대규모 업데이트와 GS25 콜라보를 진행 중이다.",
       "sentiment": { "pos": 58, "neu": 30, "neg": 12 },
       "news": [
-        { "source": "공식", "title": "신규 이벤트 ‘막을 여는 자들’ 진행 (5/21~6/4) — 신규 ★6 내스티", "url": "https://namu.wiki/w/명일방주/이벤트/2026년", "tag": "이벤트", "time": "07:15", "imp": 78 },
-        { "source": "공식", "title": "5월 상설 콘텐츠 신규 ★6 켈시·에스페란타 등 추가", "url": "https://namu.wiki/w/명일방주/이벤트/2026년", "tag": "신규캐릭터", "time": "06:20", "imp": 72 },
-        { "source": "공식", "title": "장기 탐사 콘텐츠 ‘쉐이의 기이한 계원’ 진행", "url": "https://namu.wiki/w/명일방주/이벤트/2026년", "tag": "패치", "time": "05:10", "imp": 60 },
-        { "source": "공식", "title": "(엔드필드) ‘봄날의 새벽’ 업데이트 + GS25 콜라보 (~6/15)", "url": "https://m.inven.co.kr/webzine/wznews.php?idx=315363", "tag": "콜라보", "time": "04:30", "imp": 66 }
+        { "source": "공식", "title": "신규 이벤트 ‘막을 여는 자들’ 진행 (5/21~6/4) — 신규 ★6 내스티", "url": "https://namu.wiki/w/명일방주/이벤트/2026년", "tag": "이벤트", "time": "07:15", "imp": 78, "summary": "신규 이벤트 ‘막을 여는 자들’이 5월 21일부터 6월 4일까지 진행된다. 신규 ★6 오퍼레이터 내스티와 5성 카이른·스카이박스가 함께 등장하며, 이벤트 스토리와 보상 스테이지가 제공된다." },
+        { "source": "공식", "title": "5월 상설 콘텐츠 신규 ★6 켈시·에스페란타 등 추가", "url": "https://namu.wiki/w/명일방주/이벤트/2026년", "tag": "신규캐릭터", "time": "06:20", "imp": 72, "summary": "5월 상설 콘텐츠 업데이트로 신규 ★6 켈시·에스페란타를 비롯해 클로저, 비 등 다수의 오퍼레이터가 추가됐다." },
+        { "source": "공식", "title": "장기 탐사 콘텐츠 ‘쉐이의 기이한 계원’ 진행", "url": "https://namu.wiki/w/명일방주/이벤트/2026년", "tag": "패치", "time": "05:10", "imp": 60, "summary": "장기 탐사형 콘텐츠 ‘쉐이의 기이한 계원’이 5월 중 두 차례에 걸쳐 진행됐다. 반복 플레이형 콘텐츠로 추가 보상을 제공한다." },
+        { "source": "공식", "title": "(엔드필드) ‘봄날의 새벽’ 업데이트 + GS25 콜라보 (~6/15)", "url": "https://m.inven.co.kr/webzine/wznews.php?idx=315363", "tag": "콜라보", "time": "04:30", "imp": 66, "summary": "신작 ‘명일방주: 엔드필드’가 ‘봄날의 새벽’ 대규모 업데이트로 무릉 지역 스토리를 확장하고 신규 오퍼레이터를 추가했다. 오프라인 GS25 콜라보 상품이 5월 16일부터 6월 15일까지 진행된다." }
       ],
       "events": [
         { "title": "‘막을 여는 자들’ 이벤트 종료", "start_date": "2026-06-04", "type": "이벤트", "source_url": "https://namu.wiki/w/명일방주/이벤트/2026년" },
@@ -92,13 +96,14 @@
     },
     {
       "slug": "bluearchive",
+      "image": "https://static.inven.co.kr/column/2026/05/15/news/i1404934885.jpg",
       "summary": "블루 아카이브는 신규 이벤트 ‘강철대륙 공략전’과 ★3 리오·히마리 픽업이 화제다. 한국 서버는 복귀 유저 로그인 보너스로 유입이 늘었고, 일본 서버는 제약 해제 결전 ‘세트의 분노’가 진행 중이다.",
       "sentiment": { "pos": 60, "neu": 28, "neg": 12 },
       "news": [
-        { "source": "공식", "title": "이벤트 스토리 ‘강철대륙 공략전’ 진행 — 보상 교환 7/14까지", "url": "https://namu.wiki/w/블루 아카이브/이벤트/2026년", "tag": "이벤트", "time": "07:42", "imp": 82 },
-        { "source": "공식", "title": "★3 리오·히마리 특별 픽업 모집 (6/9 종료)", "url": "https://forum.nexon.com/bluearchive/board_list?board=1039", "tag": "신규캐릭터", "time": "06:15", "imp": 80 },
-        { "source": "공식", "title": "상시 업무 복귀 로그인 보너스 이벤트 진행", "url": "https://forum.nexon.com/bluearchive/board_list?board=1039", "tag": "이벤트", "time": "05:20", "imp": 64 },
-        { "source": "공식 X", "title": "(일본) 제약 해제 결전 ‘세트의 분노’ 개최 (5/28~6/24)", "url": "https://namu.wiki/w/블루 아카이브/이벤트/2026년", "tag": "패치", "time": "03:40", "imp": 70 }
+        { "source": "공식", "title": "이벤트 스토리 ‘강철대륙 공략전’ 진행 — 보상 교환 7/14까지", "url": "https://namu.wiki/w/블루 아카이브/이벤트/2026년", "tag": "이벤트", "time": "07:42", "imp": 82, "summary": "신규 이벤트 스토리 ‘강철대륙 공략전’이 진행 중이다. 상점 등 이벤트 보상 획득·교환 기간은 5월 26일 점검 후부터 7월 14일 오전 10시 59분까지다." },
+        { "source": "공식", "title": "★3 리오·히마리 특별 픽업 모집 (6/9 종료)", "url": "https://forum.nexon.com/bluearchive/board_list?board=1039", "tag": "신규캐릭터", "time": "06:15", "imp": 80, "summary": "★3 무장 리오와 히마리의 특별 픽업 모집이 5월 26일 점검 후부터 6월 9일 오전 10시 59분까지 진행된다. 신규 학생 일러스트와 성능에 호평이 이어졌다." },
+        { "source": "공식", "title": "상시 업무 복귀 로그인 보너스 이벤트 진행", "url": "https://forum.nexon.com/bluearchive/board_list?board=1039", "tag": "이벤트", "time": "05:20", "imp": 64, "summary": "장기 미접속 유저를 위한 상시 업무 복귀 로그인 보너스 이벤트가 진행 중이다. 복귀 유저 유입이 늘었다." },
+        { "source": "공식 X", "title": "(일본) 제약 해제 결전 ‘세트의 분노’ 개최 (5/28~6/24)", "url": "https://namu.wiki/w/블루 아카이브/이벤트/2026년", "tag": "패치", "time": "03:40", "imp": 70, "summary": "일본 서버에서는 제약 해제 결전 ‘세트의 분노’가 5월 28일 11시부터 6월 24일 새벽까지 개최된다. 고난도 보스 콘텐츠로 미래시 정보가 국내 커뮤니티에서도 화제다." }
       ],
       "events": [
         { "title": "리오·히마리 특별 픽업 종료", "start_date": "2026-06-09", "type": "이벤트", "source_url": "https://forum.nexon.com/bluearchive/board_list?board=1039" },
@@ -112,12 +117,13 @@
     },
     {
       "slug": "brown2",
+      "image": "https://static.inven.co.kr/column/2025/10/10/news/i1786134491.jpg",
       "summary": "브라운더스트2는 어제(5/30) 3주년 기념 특별 라이브 방송을 진행하며 신규 코스튬·시즌 이벤트·향후 업데이트를 공개했다. ‘무직전생 II’ 콜라보 복각도 진행 중이며 충성 유저층의 만족도가 높다.",
       "sentiment": { "pos": 65, "neu": 27, "neg": 8 },
       "news": [
-        { "source": "공식", "title": "3주년 기념 ‘글루피 특별 라이브’ 방송 진행 — 신규 코스튬·시즌 이벤트 공개", "url": "https://x.com/BROWNDUST2_KR", "tag": "방송", "time": "07:05", "imp": 80 },
-        { "source": "공식", "title": "‘무직전생 II’ 콜라보 복각 업데이트 진행 (~10/23)", "url": "https://m.inven.co.kr/webzine/wznews.php?idx=310285", "tag": "콜라보", "time": "06:00", "imp": 72 },
-        { "source": "공식", "title": "23시즌 ‘가호 밴’ 시스템 도입 (5/7~)", "url": "https://arca.live/b/browndust2", "tag": "패치", "time": "04:20", "imp": 58 }
+        { "source": "공식", "title": "3주년 기념 ‘글루피 특별 라이브’ 방송 진행 — 신규 코스튬·시즌 이벤트 공개", "url": "https://x.com/BROWNDUST2_KR", "tag": "방송", "time": "07:05", "imp": 80, "summary": "5월 30일 저녁 3주년 기념 ‘글루피 특별 라이브’ 방송이 진행돼 신규 코스튬, 시즌 이벤트, 향후 업데이트 로드맵이 공개됐다. 3주년 보상과 신규 코스튬에 호평이 이어졌다." },
+        { "source": "공식", "title": "‘무직전생 II’ 콜라보 복각 업데이트 진행 (~10/23)", "url": "https://m.inven.co.kr/webzine/wznews.php?idx=310285", "tag": "콜라보", "time": "06:00", "imp": 72, "summary": "일본 인기 애니메이션 ‘무직전생 II’와의 콜라보 복각 업데이트가 진행 중이며 10월 23일까지 이어진다. 콜라보 한정 캐릭터·코스튬을 다시 획득할 수 있다." },
+        { "source": "공식", "title": "23시즌 ‘가호 밴’ 시스템 도입 (5/7~)", "url": "https://arca.live/b/browndust2", "tag": "패치", "time": "04:20", "imp": 58, "summary": "5월 7일 시작된 23시즌부터 PvP에 ‘가호 밴’ 기능이 도입돼, 시즌마다 특정 가호를 선택할 수 없는 환경이 적용된다. 메타 다양성을 위한 변경으로 평가된다." }
       ],
       "events": [
         { "title": "‘무직전생 II’ 콜라보 복각 종료", "start_date": "2026-10-23", "type": "콜라보", "source_url": "https://m.inven.co.kr/webzine/wznews.php?idx=310285" }
@@ -129,11 +135,12 @@
     },
     {
       "slug": "silverpelis",
+      "image": "https://static.inven.co.kr/column/2025/05/13/news/i1251521050.jpg",
       "summary": "실버 팰리스는 빅토리아풍 추리 오픈월드 RPG로, 출시 전 캐릭터 공개가 이어지며 인지도를 쌓고 있다. 5월 중순부터 주요 캐릭터(탐정·알프·아르고스) 소개가 공개됐으나, 정식 출시일은 아직 미정이다.",
       "sentiment": { "pos": 55, "neu": 36, "neg": 9 },
       "news": [
-        { "source": "공식 X", "title": "주요 캐릭터 ‘탐정·알프·아르고스’ 순차 공개", "url": "https://x.com/SilverPalace_KO", "tag": "신규캐릭터", "time": "06:45", "imp": 62 },
-        { "source": "공식", "title": "공식 크리에이터 상시 모집 시작", "url": "https://silverpalace.elementagames.com/ko-kr/", "tag": "이벤트", "time": "05:00", "imp": 50 }
+        { "source": "공식 X", "title": "주요 캐릭터 ‘탐정·알프·아르고스’ 순차 공개", "url": "https://x.com/SilverPalace_KO", "tag": "신규캐릭터", "time": "06:45", "imp": 62, "summary": "5월 중순부터 공식 채널을 통해 주요 캐릭터 탐정·알프·아르고스가 순차적으로 공개되며 팬층 유입을 도모하고 있다. 빅토리아 시대풍 아트 스타일에 호평이 이어졌다." },
+        { "source": "공식", "title": "공식 크리에이터 상시 모집 시작", "url": "https://silverpalace.elementagames.com/ko-kr/", "tag": "이벤트", "time": "05:00", "imp": 50, "summary": "4월 2일 공식 크리에이터 상시 모집을 시작했다. Elementa가 개발·글로벌 퍼블리싱하는 추리 오픈월드 RPG로, 정식 출시일은 아직 공개되지 않았다." }
       ],
       "events": [],
       "incidents": [],
@@ -143,11 +150,12 @@
     },
     {
       "slug": "duet",
+      "image": "https://cdn.gamemeca.com/gmdata/0001/761/340/gm910003_Untitled-1.jpg",
       "summary": "듀엣 나이트 어비스는 2025년 10월 정식 출시 후 안정적으로 운영 중이다. 2026년 첫 대형 업데이트와 함께 스팀 정식 버전을 출시했고, 5월 진행 이벤트가 마무리됐다.",
       "sentiment": { "pos": 57, "neu": 33, "neg": 10 },
       "news": [
-        { "source": "공식", "title": "2026년 첫 대형 업데이트 + 스팀 정식 버전 출시", "url": "https://kbench.com/?q=node/275395", "tag": "패치", "time": "06:35", "imp": 70 },
-        { "source": "공식", "title": "5월 진행 이벤트 마무리 (5/7~5/24)", "url": "https://duetnightabyss.herogame.com/cbt/ko/m/", "tag": "이벤트", "time": "04:10", "imp": 55 }
+        { "source": "공식", "title": "2026년 첫 대형 업데이트 + 스팀 정식 버전 출시", "url": "https://kbench.com/?q=node/275395", "tag": "패치", "time": "06:35", "imp": 70, "summary": "2025년 10월 정식 출시된 듀엣 나이트 어비스가 2026년 첫 대형 업데이트와 함께 스팀 정식 버전을 출시했다. 신규 콘텐츠 추가와 플랫폼 확대로 신규·복귀 유입이 긍정적이다." },
+        { "source": "공식", "title": "5월 진행 이벤트 마무리 (5/7~5/24)", "url": "https://duetnightabyss.herogame.com/cbt/ko/m/", "tag": "이벤트", "time": "04:10", "imp": 55, "summary": "5월 7일부터 5월 24일까지 진행된 시즌 이벤트가 마무리됐다. 한정 보상과 스토리 콘텐츠가 제공됐다." }
       ],
       "events": [],
       "incidents": [],

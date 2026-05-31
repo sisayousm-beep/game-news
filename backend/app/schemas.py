@@ -20,6 +20,8 @@ class ArticleOut(BaseModel):
     tag: str = "뉴스"
     time: str = ""
     imp: int = 50
+    summary: str = ""   # 웹 안에서 보여줄 본문 요약
+    image: str = ""     # 기사 키 비주얼 URL
 
 
 class EventOut(BaseModel):
@@ -37,6 +39,7 @@ class GameBriefOut(BaseModel):
     tier: str = ""
     sentiment: Sentiment
     summary: str = ""
+    image: str = ""     # 게임 대표 키 비주얼
     news: list[ArticleOut] = []
     events: list[EventOut] = []
     incidents: list["IncidentOut"] = []
@@ -109,6 +112,7 @@ class IngestArticle(BaseModel):
     tag: str = "뉴스"
     time: str = ""
     summary: str = ""
+    image: str = ""
     imp: int = 50
 
 
@@ -135,6 +139,7 @@ class IngestDiscussion(BaseModel):
 class IngestGame(BaseModel):
     slug: str
     summary: str = ""
+    image: str = ""     # 게임 대표 키 비주얼 (기사 이미지 폴백)
     sentiment: Sentiment
     news: list[IngestArticle] = []
     events: list[IngestEvent] = []

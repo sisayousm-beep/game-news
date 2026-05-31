@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { api, type Article } from "@/lib/api";
 import { NewsItem } from "@/components/atoms";
+import ArticleModal from "@/components/ArticleModal";
 
 export default function SearchPage() {
   const [q, setQ] = useState("");
   const [results, setResults] = useState<Article[] | null>(null);
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState<Article | null>(null);
 
   async function run(e: React.FormEvent) {
     e.preventDefault();
@@ -48,11 +50,12 @@ export default function SearchPage() {
           <>
             <p className="page-note mono" style={{ marginBottom: 12 }}>{results.length}건</p>
             <div className="news-list">
-              {results.map((a, i) => <NewsItem key={i} a={a} />)}
+              {results.map((a, i) => <NewsItem key={i} a={a} onOpen={setOpen} />)}
             </div>
           </>
         )
       )}
+      <ArticleModal a={open} onClose={() => setOpen(null)} />
     </div>
   );
 }

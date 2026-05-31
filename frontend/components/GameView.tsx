@@ -2,8 +2,9 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import type { GameBrief } from "@/lib/api";
+import type { GameBrief, Article } from "@/lib/api";
 import { Kicker, NewsItem, SentimentBar, EventRow } from "@/components/atoms";
+import ArticleModal from "@/components/ArticleModal";
 
 export default function GameView({ g }: { g: GameBrief }) {
   const tags = useMemo(
@@ -11,6 +12,7 @@ export default function GameView({ g }: { g: GameBrief }) {
     [g],
   );
   const [filter, setFilter] = useState("전체");
+  const [open, setOpen] = useState<Article | null>(null);
   const news = filter === "전체" ? g.news : g.news.filter((n) => n.tag === filter);
   const hasData = g.news.length > 0 || g.summary;
 
@@ -61,7 +63,7 @@ export default function GameView({ g }: { g: GameBrief }) {
                 </div>
               </div>
               <div className="news-list">
-                {news.map((a, i) => <NewsItem key={i} a={a} />)}
+                {news.map((a, i) => <NewsItem key={i} a={a} onOpen={setOpen} />)}
                 {news.length === 0 && <div className="empty mono">해당 분야 소식이 없습니다.</div>}
               </div>
             </section>
@@ -115,6 +117,7 @@ export default function GameView({ g }: { g: GameBrief }) {
           </div>
         </>
       )}
+      <ArticleModal a={open} onClose={() => setOpen(null)} />
     </div>
   );
 }

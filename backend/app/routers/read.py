@@ -73,7 +73,10 @@ def game_brief(db: Session, game: m.Game, issue: m.Issue) -> s.GameBriefOut:
         .all()
     )
     news = [
-        s.ArticleOut(title=a.title, source=a.source, url=a.url, tag=a.tag, time=a.time_label, imp=a.importance_score)
+        s.ArticleOut(
+            title=a.title, source=a.source, url=a.url, tag=a.tag, time=a.time_label,
+            imp=a.importance_score, summary=a.summary, image=a.image,
+        )
         for a in arts
     ]
     # 예정 이벤트(오늘 이후 우선)
@@ -107,6 +110,7 @@ def game_brief(db: Session, game: m.Game, issue: m.Issue) -> s.GameBriefOut:
         tier=game.tier,
         sentiment=sent,
         summary=brief.summary if brief else "",
+        image=brief.image if brief else "",
         news=news,
         events=events,
         incidents=incidents,
@@ -228,6 +232,9 @@ def search(q: str = Query(..., min_length=1), db: Session = Depends(get_db)):
         .all()
     )
     return [
-        s.ArticleOut(title=a.title, source=a.source, url=a.url, tag=a.tag, time=a.time_label, imp=a.importance_score)
+        s.ArticleOut(
+            title=a.title, source=a.source, url=a.url, tag=a.tag, time=a.time_label,
+            imp=a.importance_score, summary=a.summary, image=a.image,
+        )
         for a in rows
     ]
