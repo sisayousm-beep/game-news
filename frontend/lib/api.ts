@@ -14,7 +14,7 @@ export interface GameBrief {
 }
 export interface Alert { game: string; title: string; severity: string; heat: number; }
 export interface SteamRow { name: string; price: string; was: string; disc: number; low: boolean; ends: string; }
-export interface Lead { game: string; kicker: string; headline: string; deck: string; body: string[]; source: string; time: string; }
+export interface Lead { game: string; kicker: string; headline: string; deck: string; body: string[]; source: string; time: string; image: string; }
 export interface IssueMeta { title: string; tagline: string; issue: number; dateLong: string; dateShort: string; published: string; edition: string; }
 export interface FrontPage {
   meta: IssueMeta; lede: string; lead: Lead;

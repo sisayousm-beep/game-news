@@ -79,6 +79,7 @@ class LeadOut(BaseModel):
     body: list[str] = []
     source: str = ""
     time: str = ""
+    image: str = ""  # 키 비주얼 이미지 URL (없으면 빈 문자열)
 
 
 class IssueMeta(BaseModel):

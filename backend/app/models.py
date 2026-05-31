@@ -45,6 +45,7 @@ class Issue(Base):
     lead_body: Mapped[str] = mapped_column(Text, default="")  # 문단 \n\n 구분
     lead_source: Mapped[str] = mapped_column(String(256), default="")
     lead_time: Mapped[str] = mapped_column(String(64), default="")
+    lead_image: Mapped[str] = mapped_column(Text, default="")  # 1면 키 비주얼 이미지 URL
     published_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
 

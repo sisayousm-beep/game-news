@@ -180,6 +180,7 @@ def front_page(
         body=[p for p in issue.lead_body.split("\n\n") if p.strip()],
         source=issue.lead_source,
         time=issue.lead_time,
+        image=issue.lead_image,
     )
     return s.FrontPageOut(
         meta=meta, lede=issue.lede, lead=lead, games=briefs, alerts=alerts, steam=steam_rows(db)

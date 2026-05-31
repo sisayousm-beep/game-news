@@ -27,6 +27,9 @@ export default function FrontView({ D }: { D: FrontPage }) {
               <Kicker>{D.lead.kicker} · {D.lead.game}</Kicker>
               <h2 className="lead-hd serif">{D.lead.headline}</h2>
               <div className="lead-photo">
+                {D.lead.image && (
+                  <img src={D.lead.image} alt="" referrerPolicy="no-referrer" />
+                )}
                 <span className="photo-cap mono">PHOTO — 공식 키 비주얼</span>
               </div>
               <p className="lead-deck serif">{D.lead.deck}</p>

@@ -53,6 +53,7 @@ def ingest(
     issue.lead_body = "\n\n".join(payload.lead.body)
     issue.lead_source = payload.lead.source
     issue.lead_time = payload.lead.time
+    issue.lead_image = payload.lead.image
 
     # 3) 게임별
     for ig in payload.games:

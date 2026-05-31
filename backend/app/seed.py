@@ -10,8 +10,8 @@ GAMES = [
     ("arknights", "명일방주", "Arknights", "Hypergryph", "메인"),
     ("starrail", "붕괴: 스타레일", "Honkai: Star Rail", "HoYoverse", "메인"),
     ("wuwa", "명조: 워더링 웨이브", "Wuthering Waves", "Kuro Games", "메인"),
-    ("duet", "듀엣 나이트 어비스", "Duet Night Abyss", "Pan Studio", "신규"),
-    ("silverpelis", "실버펠리스", "Silver Pelis", "—", "신규"),
+    ("duet", "듀엣 나이트 어비스", "Duet Night Abyss", "Pan Studio", "라이브"),
+    ("silverpelis", "실버 팰리스", "Silver Palace", "Elementa", "신규"),
     ("brown2", "브라운더스트2", "BrownDust 2", "네오위즈", "라이브"),
     # 확장 대상
     ("zzz", "젠레스 존 제로", "Zenless Zone Zero", "HoYoverse", "확장"),
