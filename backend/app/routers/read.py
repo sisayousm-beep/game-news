@@ -252,7 +252,13 @@ def calendar(db: Session = Depends(get_db)):
         .order_by(m.Event.start_date)
         .all()
     )
-    return [s.EventOut(date=md(e.start_date), title=e.title, type=e.type, game=gname) for e, gname in rows]
+    return [
+        s.EventOut(
+            date=md(e.start_date), title=e.title, type=e.type, game=gname,
+            start=e.start_date.isoformat(), end=(e.end_date.isoformat() if e.end_date else ""),
+        )
+        for e, gname in rows
+    ]
 
 
 @router.get("/search", response_model=list[s.ArticleOut])

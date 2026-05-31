@@ -29,6 +29,8 @@ class EventOut(BaseModel):
     title: str
     type: str = "이벤트"
     game: Optional[str] = None
+    start: str = ""  # ISO YYYY-MM-DD (달력용)
+    end: str = ""    # ISO, 없으면 빈 문자열
 
 
 class GameBriefOut(BaseModel):

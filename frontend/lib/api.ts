@@ -4,7 +4,7 @@ export const API_BASE =
 // ---- types (백엔드 schemas.py 와 일치) ----
 export interface Sentiment { pos: number; neu: number; neg: number; }
 export interface Article { title: string; source: string; url: string; tag: string; time: string; imp: number; summary: string; image: string; }
-export interface EventItem { date: string; title: string; type: string; game?: string | null; }
+export interface EventItem { date: string; title: string; type: string; game?: string | null; start?: string; end?: string; }
 export interface Incident { title: string; severity: string; }
 export interface Discussion { topic: string; sentiment: string; summary: string; source: string; }
 export interface GameBrief {
