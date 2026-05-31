@@ -7,8 +7,11 @@ export const dynamic = "force-dynamic";
 export default async function GamePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   try {
-    const g = await api.game(slug);
-    return <GameView g={g} />;
+    const [g, characters] = await Promise.all([
+      api.game(slug),
+      api.characters(slug).catch(() => []),
+    ]);
+    return <GameView g={g} characters={characters} />;
   } catch {
     notFound();
   }

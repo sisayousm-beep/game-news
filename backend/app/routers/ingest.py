@@ -4,6 +4,8 @@ POST /api/ingest  (헤더 X-Ingest-Token 필요)
 같은 날짜로 다시 보내면 그 날 편집판을 통째로 교체(idempotent)한다.
 """
 
+from datetime import datetime
+
 from fastapi import APIRouter, Depends, Header, HTTPException
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
@@ -95,3 +97,37 @@ def ingest(
 
     db.commit()
     return {"ok": True, "issue_date": payload.issue_date.isoformat(), "issue_no": issue.issue_no}
+
+
+@router.post("/character/ingest")
+def ingest_character(
+    payload: s.IngestCharacter,
+    x_ingest_token: str | None = Header(None),
+    db: Session = Depends(get_db),
+):
+    _auth(x_ingest_token)
+    game = db.query(m.Game).filter(m.Game.slug == payload.game).first()
+    if not game:
+        raise HTTPException(404, f"게임 없음: {payload.game}")
+
+    ch = (
+        db.query(m.Character)
+        .filter(m.Character.game_id == game.id, m.Character.slug == payload.slug)
+        .first()
+    )
+    if not ch:
+        ch = m.Character(game_id=game.id, slug=payload.slug)
+        db.add(ch)
+    ch.name = payload.name
+    ch.name_en = payload.nameEn
+    ch.rarity = payload.rarity
+    ch.element = payload.element
+    ch.weapon_type = payload.weapon_type
+    ch.role = payload.role
+    ch.image = payload.image
+    ch.tagline = payload.tagline
+    ch.overview = payload.overview
+    ch.data = payload.data
+    ch.updated_at = datetime.utcnow()
+    db.commit()
+    return {"ok": True, "game": payload.game, "slug": payload.slug}

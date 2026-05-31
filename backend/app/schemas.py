@@ -104,6 +104,41 @@ class FrontPageOut(BaseModel):
     steam: list[SteamRowOut] = []
 
 
+# ---------- 캐릭터 공략 ----------
+class CharacterListItem(BaseModel):
+    slug: str
+    name: str
+    nameEn: str = ""
+    rarity: int = 5
+    element: str = ""
+    weapon_type: str = ""
+    role: str = ""
+    image: str = ""
+
+
+class CharacterOut(CharacterListItem):
+    game: str = ""
+    gameName: str = ""
+    tagline: str = ""
+    overview: str = ""
+    data: dict = {}
+
+
+class IngestCharacter(BaseModel):
+    game: str  # 게임 slug
+    slug: str
+    name: str
+    nameEn: str = ""
+    rarity: int = 5
+    element: str = ""
+    weapon_type: str = ""
+    role: str = ""
+    image: str = ""
+    tagline: str = ""
+    overview: str = ""
+    data: dict = {}
+
+
 # ---------- 입력 (Ingest) ----------
 class IngestArticle(BaseModel):
     source: str = "공식"

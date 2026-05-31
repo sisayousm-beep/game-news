@@ -191,6 +191,71 @@ a{color:inherit; text-decoration:none; cursor:pointer;}
 .modal-src:hover{background:var(--accent); color:#000;}
 @media(max-width:820px){ .modal-title{font-size:21px;} .modal-content{padding:18px 18px 22px;} .modal-backdrop{padding:20px 12px;} }
 
+/* ───────── Character cards (game page strip) ───────── */
+.char-strip{border-bottom:1px solid var(--border); padding-bottom:var(--gap); margin-bottom:var(--gap);}
+.char-cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px;}
+.char-card{display:flex; gap:12px; border:1px solid var(--border); padding:10px; align-items:center;}
+.char-card:hover{border-color:var(--accent);}
+.char-card-img{width:64px; height:64px; flex-shrink:0; border:1px solid var(--border); overflow:hidden; background:#0f0f12;}
+.char-card-img img{width:100%; height:100%; object-fit:cover;}
+.char-card-body{display:flex; flex-direction:column; gap:3px; min-width:0;}
+.char-card-name{font-size:17px; font-weight:700;}
+.char-card:hover .char-card-name{color:var(--accent);}
+.char-card-meta{font-size:10.5px; color:var(--accent);}
+.char-card-role{font-size:10.5px; color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+
+/* ───────── Character guide page ───────── */
+.cg-hero{display:flex; gap:28px; align-items:flex-end; border-bottom:3px solid var(--ink); padding-bottom:20px; margin-top:6px;}
+.cg-hero-img{width:200px; height:240px; flex-shrink:0; border:1px solid var(--border); overflow:hidden; background:
+  repeating-linear-gradient(135deg,#141417,#141417 9px,#0f0f12 9px,#0f0f12 18px);}
+.cg-hero-img img{width:100%; height:100%; object-fit:cover;}
+.cg-hero-info{min-width:0;}
+.cg-rarity{color:var(--accent); font-size:15px; letter-spacing:.1em;}
+.cg-name{font-size:46px; font-weight:900; line-height:1; letter-spacing:-.01em; margin:6px 0 2px;}
+.cg-name-en{font-size:13px; color:var(--ink-3); text-transform:uppercase; letter-spacing:.06em;}
+.cg-chips{display:flex; gap:6px; flex-wrap:wrap; margin:14px 0 0;}
+.cg-tagline{font-size:15px; color:var(--ink-2); line-height:1.6; margin-top:14px; text-wrap:pretty;}
+.cg-grid{display:grid; grid-template-columns:1.45fr 1fr; gap:var(--gap); margin-top:var(--gap);}
+.cg-col{min-width:0;}
+.cg-rail{border-left:1px solid var(--border); padding-left:var(--gap);}
+.cg-sec{margin-bottom:var(--gap);}
+.cg-sec:last-child{margin-bottom:0;}
+.cg-weapons{list-style:none; display:flex; flex-direction:column; gap:10px;}
+.cg-weapon{display:flex; gap:12px; align-items:flex-start;}
+.cg-weapon-rank{width:24px; height:24px; flex-shrink:0; border:1px solid var(--accent); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600;}
+.cg-weapon-body{display:flex; flex-direction:column; gap:3px; min-width:0;}
+.cg-weapon-name{font-size:16px; font-weight:600; display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;}
+.cg-weapon-tags{font-size:10.5px; color:var(--ink-3);}
+.cg-weapon-note{font-size:13.5px; color:var(--ink-2); line-height:1.55;}
+.cg-echoes{display:flex; flex-direction:column; gap:12px;}
+.cg-echo{border:1px solid var(--border); padding:13px 15px;}
+.cg-echo-head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:6px;}
+.cg-echo-mode{font-size:10.5px; color:#000; background:var(--accent); padding:2px 7px;}
+.cg-echo-set{font-size:16px; font-weight:700;}
+.cg-echo-main{font-size:11.5px; color:var(--ink-3); margin-bottom:6px;}
+.cg-echo-note{font-size:13.5px; color:var(--ink-2); line-height:1.6;}
+.cg-rotation{font-size:14px; color:var(--ink); line-height:1.7; background:var(--panel); border:1px solid var(--border); padding:13px 15px;}
+.cg-teams{display:flex; flex-direction:column; gap:12px;}
+.cg-team-name{font-size:12px; color:var(--accent); display:block; margin-bottom:7px;}
+.cg-team-members{display:flex; gap:6px; flex-wrap:wrap;}
+.cg-stat-table{width:100%; border-collapse:collapse; font-size:13.5px;}
+.cg-stat-table th{text-align:left; color:var(--ink-3); font-weight:500; padding:6px 0; border-bottom:1px solid var(--hair); width:46%; font-size:12px;}
+.cg-stat-table td{text-align:right; color:var(--ink); padding:6px 0; border-bottom:1px solid var(--hair);}
+.cg-priority{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:6px; font-size:13.5px; color:var(--ink-2); line-height:1.5;}
+.cg-priority li::marker{color:var(--accent);}
+.cg-tiers{display:flex; flex-direction:column; gap:14px;}
+.cg-tier{border:1px solid var(--border); padding:13px 15px;}
+.cg-tier-name{font-size:13px; color:var(--accent); font-weight:600; margin-bottom:6px;}
+.cg-tier-note{font-size:12.5px; color:var(--ink-3); line-height:1.55; margin-bottom:8px;}
+.cg-sources{margin-top:32px; padding-top:16px; border-top:1px solid var(--border); font-size:11px; color:var(--ink-3);}
+@media(max-width:820px){
+  .cg-grid{grid-template-columns:1fr;}
+  .cg-rail{border-left:none; padding-left:0; border-top:1px solid var(--border); padding-top:var(--gap);}
+  .cg-hero{flex-direction:column; align-items:flex-start; gap:16px;}
+  .cg-hero-img{width:140px; height:168px;}
+  .cg-name{font-size:34px;}
+}
+
 /* ───────── Tag ───────── */
 .tag{font-family:var(--mono); font-size:10px; color:var(--ink-3);
   border:1px solid var(--border); padding:1px 6px; white-space:nowrap;}

@@ -1,6 +1,7 @@
 from datetime import date, datetime
 
 from sqlalchemy import (
+    JSON,
     Boolean,
     Date,
     DateTime,
@@ -131,6 +132,30 @@ class Alert(Base):
     severity: Mapped[str] = mapped_column(String(16), default="관찰")  # 주의/관찰
     heat: Mapped[int] = mapped_column(Integer, default=50)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+class Character(Base):
+    """캐릭터 공략(빌드) 가이드. 스펙·무기·에코·세팅·종결 스탯 등은 data(JSON)에 담는다."""
+
+    __tablename__ = "characters"
+    __table_args__ = (UniqueConstraint("game_id", "slug", name="uq_char_game_slug"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    game_id: Mapped[int] = mapped_column(ForeignKey("games.id"), index=True)
+    slug: Mapped[str] = mapped_column(String(64), index=True)
+    name: Mapped[str] = mapped_column(String(128))
+    name_en: Mapped[str] = mapped_column(String(128), default="")
+    rarity: Mapped[int] = mapped_column(Integer, default=5)
+    element: Mapped[str] = mapped_column(String(32), default="")
+    weapon_type: Mapped[str] = mapped_column(String(32), default="")
+    role: Mapped[str] = mapped_column(String(64), default="")
+    image: Mapped[str] = mapped_column(Text, default="")
+    tagline: Mapped[str] = mapped_column(Text, default="")
+    overview: Mapped[str] = mapped_column(Text, default="")
+    data: Mapped[dict] = mapped_column(JSON, default=dict)  # weapons/echoes/stats/tiers/teams 등
+    updated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+    game: Mapped["Game"] = relationship()
 
 
 class SteamGame(Base):

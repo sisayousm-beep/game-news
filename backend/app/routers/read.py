@@ -126,6 +126,40 @@ def list_games(db: Session = Depends(get_db)):
     return [{"slug": g.slug, "name": g.name, "tier": g.tier} for g in games]
 
 
+@router.get("/characters", response_model=list[s.CharacterListItem])
+def list_characters(game: str | None = Query(None), db: Session = Depends(get_db)):
+    """캐릭터 공략 목록. game=slug로 게임별 필터."""
+    q = db.query(m.Character).join(m.Game, m.Character.game_id == m.Game.id)
+    if game:
+        q = q.filter(m.Game.slug == game)
+    rows = q.order_by(desc(m.Character.updated_at)).all()
+    return [
+        s.CharacterListItem(
+            slug=c.slug, name=c.name, nameEn=c.name_en, rarity=c.rarity,
+            element=c.element, weapon_type=c.weapon_type, role=c.role, image=c.image,
+        )
+        for c in rows
+    ]
+
+
+@router.get("/character/{game}/{slug}", response_model=s.CharacterOut)
+def character_detail(game: str, slug: str, db: Session = Depends(get_db)):
+    row = (
+        db.query(m.Character, m.Game.name, m.Game.slug)
+        .join(m.Game, m.Character.game_id == m.Game.id)
+        .filter(m.Game.slug == game, m.Character.slug == slug)
+        .first()
+    )
+    if not row:
+        raise HTTPException(404, "캐릭터 공략을 찾을 수 없습니다")
+    c, gname, gslug = row
+    return s.CharacterOut(
+        slug=c.slug, name=c.name, nameEn=c.name_en, rarity=c.rarity, element=c.element,
+        weapon_type=c.weapon_type, role=c.role, image=c.image, game=gslug, gameName=gname,
+        tagline=c.tagline, overview=c.overview, data=c.data or {},
+    )
+
+
 @router.get("/issues", response_model=list[str])
 def list_issues(db: Session = Depends(get_db)):
     """아카이브용 — 발행된 날짜 목록(최신순)."""

@@ -22,6 +22,26 @@ export interface FrontPage {
 }
 export interface GameNav { slug: string; name: string; tier: string; }
 
+export interface CharacterListItem {
+  slug: string; name: string; nameEn: string; rarity: number;
+  element: string; weapon_type: string; role: string; image: string;
+}
+export interface CharacterData {
+  modes?: string[];
+  weapons?: { name: string; rarity: number; signature?: boolean; note: string }[];
+  echoes?: { mode: string; set: string; mainEcho: string; note: string }[];
+  mainStats?: Record<string, string>;
+  subStats?: string[];
+  skillPriority?: string[];
+  rotation?: string;
+  teams?: { name: string; members: string[] }[];
+  tiers?: { name: string; note: string; stats: Record<string, string> }[];
+  sources?: string[];
+}
+export interface CharacterDetail extends CharacterListItem {
+  game: string; gameName: string; tagline: string; overview: string; data: CharacterData;
+}
+
 async function getJSON<T>(path: string): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, { cache: "no-store" });
   if (!res.ok) throw new Error(`API ${path} → ${res.status}`);
@@ -36,4 +56,6 @@ export const api = {
   games: () => getJSON<GameNav[]>(`/api/games`),
   issues: () => getJSON<string[]>(`/api/issues`),
   search: (q: string) => getJSON<Article[]>(`/api/search?q=${encodeURIComponent(q)}`),
+  characters: (game?: string) => getJSON<CharacterListItem[]>(`/api/characters${game ? `?game=${game}` : ""}`),
+  character: (game: string, slug: string) => getJSON<CharacterDetail>(`/api/character/${game}/${slug}`),
 };

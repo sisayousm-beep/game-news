@@ -2,11 +2,11 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import type { GameBrief, Article } from "@/lib/api";
+import type { GameBrief, Article, CharacterListItem } from "@/lib/api";
 import { Kicker, NewsItem, SentimentBar, EventRow } from "@/components/atoms";
 import ArticleModal from "@/components/ArticleModal";
 
-export default function GameView({ g }: { g: GameBrief }) {
+export default function GameView({ g, characters = [] }: { g: GameBrief; characters?: CharacterListItem[] }) {
   const tags = useMemo(
     () => ["전체", ...Array.from(new Set(g.news.map((n) => n.tag)))],
     [g],
@@ -36,6 +36,28 @@ export default function GameView({ g }: { g: GameBrief }) {
           <SentimentBar s={g.sentiment} size="lg" />
         </div>
       </header>
+
+      {characters.length > 0 && (
+        <section className="char-strip">
+          <div className="sec-head"><Kicker>캐릭터 공략 — {characters.length}</Kicker></div>
+          <div className="char-cards">
+            {characters.map((c) => (
+              <Link key={c.slug} href={`/game/${g.slug}/char/${c.slug}`} className="char-card">
+                <span className="char-card-img">
+                  {c.image && <img src={c.image} alt="" referrerPolicy="no-referrer" />}
+                </span>
+                <span className="char-card-body">
+                  <span className="char-card-name serif">{c.name}</span>
+                  <span className="char-card-meta mono">
+                    {"★".repeat(c.rarity)} · {c.element} · {c.weapon_type}
+                  </span>
+                  <span className="char-card-role mono">{c.role}</span>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {!hasData ? (
         <p className="empty mono">아직 이 게임의 브리핑이 없습니다.</p>
