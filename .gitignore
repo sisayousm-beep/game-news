@@ -21,6 +21,7 @@ node_modules/
 out/
 next-env.d.ts
 frontend/.env.local
+*.tsbuildinfo
 
 # Local verification artifacts
 _shot_*.png
