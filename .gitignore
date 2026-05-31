@@ -34,3 +34,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# User screenshots / pasted assets
+자료*.png
