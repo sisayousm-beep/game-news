@@ -16,6 +16,8 @@ export default function Masthead({ meta }: { meta: IssueMeta }) {
           <span className="pub-dot" />
           <span>{meta.published}</span>
           <span className="util-sep">·</span>
+          <Link className="util-btn" href="/steam-sales">스팀 할인</Link>
+          <Link className="util-btn" href="/calendar">캘린더</Link>
           <Link className="util-btn" href="/search">검색</Link>
           <Link className="util-btn" href="/archive">아카이브</Link>
         </div>

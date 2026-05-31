@@ -21,9 +21,6 @@ export default function TopNav({ games }: { games: GameNav[] }) {
             {g.name}
           </Link>
         ))}
-        <span className="gnav-spacer" />
-        <Link className={"gnav-item is-sec" + (path === "/steam-sales" ? " active" : "")} href="/steam-sales">스팀 할인</Link>
-        <Link className={"gnav-item is-sec" + (path === "/calendar" ? " active" : "")} href="/calendar">이벤트</Link>
       </div>
     </nav>
   );
