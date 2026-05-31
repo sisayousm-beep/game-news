@@ -116,6 +116,7 @@ class Discussion(Base):
     sentiment: Mapped[str] = mapped_column(String(16), default="중립")  # 긍정/중립/부정
     summary: Mapped[str] = mapped_column(Text, default="")
     source: Mapped[str] = mapped_column(String(64), default="")
+    source_url: Mapped[str] = mapped_column(Text, default="")  # 해당 의견을 보여주는 게시글 링크
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
 

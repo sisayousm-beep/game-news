@@ -322,7 +322,8 @@ a { color: inherit; text-decoration: none; }
 .masthead-meta { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:14px; }
 .masthead-meta .dim { color:var(--line-2); }
 .masthead-meta .date { font-size:.86rem; color:var(--ink-sec); font-weight:500; }
-.masthead h1 { font-size:clamp(2rem,5vw,3.2rem); max-width:22ch; margin:0; }
+.masthead h1 { font-size:clamp(1.65rem,3.4vw,2.4rem); max-width:26ch; margin:0; color:var(--ink); line-height:1.16; letter-spacing:-.03em; }
+.masthead .masthead-lede { color:var(--ink-sec); font-size:1.02rem; line-height:1.72; max-width:72ch; margin:14px 0 0; text-wrap:pretty; }
 .masthead .lede { color:var(--ink-sec); font-size:1.04rem; line-height:1.6; max-width:64ch; margin:16px 0 0; }
 
 .page-head { padding: 34px 0 6px; display:flex; align-items:flex-end; gap:14px; flex-wrap:wrap; }
@@ -398,13 +399,27 @@ a { color: inherit; text-decoration: none; }
 .sent-notes .row:last-child { margin-bottom:0; }
 .sent-notes .txt { font-size:.84rem; color:var(--ink-sec); line-height:1.4; }
 
-/* sidebar: steam board */
-.steam-row { display:flex; align-items:center; gap:12px; padding:12px 0; }
+/* sidebar: steam board / list rows — 할인 vs 정가 시각 위계 분명히 */
+.steam-row { display:flex; align-items:center; gap:12px; padding:12px 0 12px 14px; position:relative; }
 .steam-row + .steam-row { border-top:1px solid var(--line); }
+.steam-row.is-onsale::before { content:""; position:absolute; left:0; top:10px; bottom:10px; width:3px; border-radius:3px; background:var(--primary); }
+.steam-row.is-onsale.low::before { background:var(--pos); }
 .steam-thumb { width:46px; height:46px; border-radius:11px; flex:0 0 auto; }
-.steam-row .nm { font-weight:700; font-size:.9rem; }
+.steam-row .sr-main { flex:1; min-width:0; }
+.steam-row .nm { font-weight:700; font-size:.9rem; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.steam-row .sr-sub { margin-top:3px; display:flex; align-items:center; gap:8px; }
 .steam-row .was { font-size:.74rem; color:var(--muted); text-decoration:line-through; }
-.steam-row .now { font-weight:800; color:var(--primary); }
+.steam-row .ends { font-size:.7rem; color:var(--muted); }
+.steam-row .sr-price { text-align:right; flex:0 0 auto; display:flex; flex-direction:column; align-items:flex-end; gap:4px; }
+.disc-badge { font-size:.76rem; font-weight:800; color:#fff; background:var(--primary); padding:2px 9px; border-radius:var(--r-pill); box-shadow:var(--sh-glow); white-space:nowrap; }
+.disc-badge.low { background:var(--pos); box-shadow:0 8px 20px -10px rgba(24,183,166,.6); }
+.steam-row .now { font-weight:800; color:var(--primary); font-size:1rem; }
+/* 정가(할인 없음) — 한눈에 구분되게 흐리고 무채색 */
+.steam-row.is-flat { opacity:.62; }
+.steam-row.is-flat .nm { color:var(--ink-sec); font-weight:600; }
+.flat-note { font-size:.72rem; color:var(--muted); }
+.flat-price { font-weight:700; color:var(--ink-sec); font-size:.92rem; }
+.low-flag { font-size:.62rem; font-weight:800; color:#0B7468; background:var(--pos-soft); padding:2px 6px; border-radius:6px; }
 
 /* sidebar: week schedule */
 .day-row { display:flex; gap:13px; align-items:center; }
@@ -469,6 +484,20 @@ a { color: inherit; text-decoration: none; }
 .rail-list { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
 .rail-li { display:flex; gap:10px; align-items:flex-start; font-size:.9rem; line-height:1.45; }
 .rail-li .lead-strong { font-weight:700; }
+
+/* community reaction — detailed cards w/ source link */
+.disc-list { display:flex; flex-direction:column; gap:10px; }
+.disc-card { border:1px solid var(--line); border-left-width:3px; border-radius:var(--r-md); padding:11px 13px; background:var(--surface-2); }
+.disc-card.pos { border-left-color:var(--pos); }
+.disc-card.neg { border-left-color:var(--neg); }
+.disc-card.neu { border-left-color:var(--neu); }
+.disc-head { display:flex; align-items:center; gap:8px; margin-bottom:5px; }
+.disc-topic { font-weight:700; font-size:.9rem; letter-spacing:-.01em; }
+.disc-summary { font-size:.84rem; color:var(--ink-sec); line-height:1.55; }
+.disc-foot { display:flex; align-items:center; gap:10px; margin-top:8px; font-size:.74rem; }
+.disc-src { color:var(--muted); }
+.disc-link { color:var(--primary); font-weight:700; white-space:nowrap; }
+.disc-link:hover { text-decoration:underline; }
 
 /* events list */
 .evts { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
@@ -580,8 +609,7 @@ a { color: inherit; text-decoration: none; }
    Steam page (full list)
    ========================================================= */
 .steam-list { display:flex; flex-direction:column; padding:6px 18px; }
-.steam-list .steam-row { padding:14px 0; }
-.low-flag { font-size:.66rem; font-weight:800; color:#0B7468; background:var(--pos-soft); padding:2px 6px; border-radius:6px; margin-left:7px; }
+.steam-list .steam-row { padding-top:14px; padding-bottom:14px; }
 
 /* =========================================================
    Search & archive

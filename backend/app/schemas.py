@@ -58,6 +58,7 @@ class DiscussionOut(BaseModel):
     sentiment: str = "중립"
     summary: str = ""
     source: str = ""
+    source_url: str = ""
 
 
 class AlertOut(BaseModel):
@@ -171,6 +172,7 @@ class IngestDiscussion(BaseModel):
     sentiment: str = "중립"
     summary: str = ""
     source: str = ""
+    source_url: str = ""
 
 
 class IngestGame(BaseModel):

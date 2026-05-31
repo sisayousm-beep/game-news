@@ -99,7 +99,7 @@ def game_brief(db: Session, game: m.Game, issue: m.Issue) -> s.GameBriefOut:
         .all()
     )
     discussions = [
-        s.DiscussionOut(topic=d.topic, sentiment=d.sentiment, summary=d.summary, source=d.source)
+        s.DiscussionOut(topic=d.topic, sentiment=d.sentiment, summary=d.summary, source=d.source, source_url=d.source_url)
         for d in discs
     ]
     return s.GameBriefOut(

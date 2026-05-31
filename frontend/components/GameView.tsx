@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { GameBrief, Article, CharacterListItem } from "@/lib/api";
-import { SentimentBar, NewsItem, EventRow } from "@/components/atoms";
+import { SentimentBar, NewsItem, EventRow, DiscussionList } from "@/components/atoms";
 import ArticleModal from "@/components/ArticleModal";
 
 export default function GameView({ g, characters = [] }: { g: GameBrief; characters?: CharacterListItem[] }) {
@@ -112,19 +112,16 @@ export default function GameView({ g, characters = [] }: { g: GameBrief; charact
               <section className="card glass reveal" style={{ padding: "20px 22px" }}>
                 <div className="section-head"><h2 style={{ fontSize: "1.08rem" }}>커뮤니티 반응</h2></div>
                 <SentimentBar s={g.sentiment} legend />
-                <p style={{ fontSize: ".86rem", color: "var(--ink-sec)", margin: "12px 0 0", lineHeight: 1.5 }}>
+                <p style={{ fontSize: ".86rem", color: "var(--ink-sec)", margin: "12px 0 4px", lineHeight: 1.5 }}>
                   긍정 여론이 <b>{g.sentiment.pos}%</b>로 우세
                   {g.sentiment.neg >= 20 ? "하나, 부정 의견도 적지 않다." : "하며 전반적으로 안정적이다."}
                 </p>
-                {g.discussions.length > 0 && (
-                  <ul className="rail-list" style={{ marginTop: 14 }}>
-                    {g.discussions.map((d, i) => (
-                      <li key={i} className="rail-li">
-                        <span className={"badge " + (d.sentiment === "부정" ? "badge-neg" : d.sentiment === "긍정" ? "badge-pos" : "badge-neu")} style={{ flex: "0 0 auto" }}>{d.sentiment}</span>
-                        <span><b className="lead-strong">{d.topic}</b> — {d.summary}</span>
-                      </li>
-                    ))}
-                  </ul>
+                {g.discussions.length > 0 ? (
+                  <div style={{ marginTop: 12 }}><DiscussionList items={g.discussions} /></div>
+                ) : (
+                  <p style={{ fontSize: ".82rem", color: "var(--muted)", marginTop: 10 }}>
+                    수집된 주요 의견이 아직 없습니다.
+                  </p>
                 )}
               </section>
             </aside>

@@ -45,6 +45,21 @@ export default function TopNav({ games }: { games: GameNav[] }) {
     return () => window.removeEventListener("resize", move);
   }, [path, games]);
 
+  // 마우스 휠(세로)로 게임 탭을 가로 스크롤
+  useEffect(() => {
+    const row = rowRef.current;
+    if (!row) return;
+    const onWheel = (e: WheelEvent) => {
+      if (e.deltaY === 0) return;
+      const canScroll = row.scrollWidth > row.clientWidth;
+      if (!canScroll) return;
+      e.preventDefault();
+      row.scrollLeft += e.deltaY;
+    };
+    row.addEventListener("wheel", onWheel, { passive: false });
+    return () => row.removeEventListener("wheel", onWheel);
+  }, []);
+
   return (
     <div className="gamenav">
       <div className="shell">

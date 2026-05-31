@@ -1,4 +1,4 @@
-import type { Sentiment, Article, EventItem, SteamRow } from "@/lib/api";
+import type { Sentiment, Article, EventItem, SteamRow, Discussion } from "@/lib/api";
 
 export function Tag({ children, tone }: { children: React.ReactNode; tone?: "blue" | "warn" | "pos" | "neg" | "neu" }) {
   return <span className={"badge badge-" + (tone || "neu")}>{children}</span>;
@@ -85,28 +85,62 @@ export function EventRow({ e, game }: { e: EventItem; game?: string | null }) {
   );
 }
 
-export function SteamLine({ r }: { r: SteamRow }) {
+function discTone(s: string) {
+  return s === "긍정" ? "pos" : s === "부정" ? "neg" : "neu";
+}
+
+export function DiscussionList({ items }: { items: Discussion[] }) {
+  if (!items.length) return null;
   return (
-    <div className="steam-row">
+    <div className="disc-list">
+      {items.map((d, i) => (
+        <div key={i} className={"disc-card " + discTone(d.sentiment)}>
+          <div className="disc-head">
+            <span className={"badge badge-" + discTone(d.sentiment)}>{d.sentiment}</span>
+            <span className="disc-topic">{d.topic}</span>
+          </div>
+          {d.summary && <div className="disc-summary">{d.summary}</div>}
+          {(d.source || d.source_url) && (
+            <div className="disc-foot">
+              {d.source && <span className="disc-src">{d.source}</span>}
+              {d.source_url && (
+                <a className="disc-link" href={d.source_url} target="_blank" rel="noreferrer">게시글 보기 ↗</a>
+              )}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function SteamLine({ r }: { r: SteamRow }) {
+  const onSale = r.disc > 0;
+  return (
+    <div className={"steam-row " + (onSale ? "is-onsale" + (r.low ? " low" : "") : "is-flat")}>
       <div className="steam-thumb kv" data-label="" />
-      <div style={{ flex: 1, minWidth: 0 }}>
+      <div className="sr-main">
         <div className="nm">
           {r.name}
-          {r.low && <span className="low-flag">최저가</span>}
+          {r.low && <span className="low-flag">역대 최저가</span>}
         </div>
-        <div className="was tnum">{r.was}</div>
-      </div>
-      <div style={{ textAlign: "right" }}>
-        {r.disc > 0 ? (
-          <span className={"badge " + (r.low ? "badge-low" : "badge-blue")} style={{ marginBottom: 3 }}>
-            −{r.disc}%{r.low ? " · 최저" : ""}
-          </span>
+        {onSale ? (
+          <div className="sr-sub">
+            <span className="was tnum">{r.was}</span>
+            {r.ends && r.ends !== "—" && <span className="ends">~{r.ends} 종료</span>}
+          </div>
         ) : (
-          <span className="badge badge-neu" style={{ marginBottom: 3 }}>정가</span>
+          <div className="sr-sub"><span className="flat-note">할인 없음 · 정가</span></div>
         )}
-        <div className="now tnum">{r.price}</div>
-        {r.ends && r.ends !== "—" && (
-          <div style={{ fontSize: ".7rem", color: "var(--muted)", marginTop: 2 }}>~{r.ends}</div>
+      </div>
+      <div className="sr-price">
+        {onSale ? (
+          <>
+            <span className={"disc-badge" + (r.low ? " low" : "")}>−{r.disc}%</span>
+            <span className="now tnum">{r.price}</span>
+          </>
+        ) : (
+          <span className="flat-price tnum">{r.price}</span>
         )}
       </div>
     </div>

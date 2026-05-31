@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { FrontPage, Article, GameBrief } from "@/lib/api";
-import { SentimentBar, SteamLine } from "@/components/atoms";
+import { SentimentBar, SteamLine, DiscussionList } from "@/components/atoms";
 import ArticleModal from "@/components/ArticleModal";
 
 const DOT: Record<string, string> = {
@@ -44,10 +44,13 @@ export default function FrontView({ D }: { D: FrontPage }) {
   })();
   const posL = (agg.pos / 100) * C, neuL = (agg.neu / 100) * C, negL = (agg.neg / 100) * C;
 
-  // 대표 여론 한마디(긍정/부정)
-  const allDisc = D.games.flatMap((g) => g.discussions.map((d) => ({ ...d, game: g.name })));
+  // 대표 여론(긍정/부정) — 게임명을 출처에 덧붙여 카드로 표시
+  const allDisc = D.games.flatMap((g) =>
+    g.discussions.map((d) => ({ ...d, source: [g.name, d.source].filter(Boolean).join(" · ") })),
+  );
   const posNote = allDisc.find((d) => d.sentiment === "긍정");
   const negNote = allDisc.find((d) => d.sentiment === "부정");
+  const frontNotes = [posNote, negNote].filter(Boolean) as typeof allDisc;
 
   // 이번 주 일정
   const year = Number((D.meta.dateShort || "").slice(0, 4)) || new Date().getFullYear();
@@ -57,6 +60,11 @@ export default function FrontView({ D }: { D: FrontPage }) {
     .filter((e) => e.d && e.d >= today)
     .sort((a, b) => a.d!.getTime() - b.d!.getTime())
     .slice(0, 5);
+
+  // 편집국 한 줄(lede)을 헤드라인(첫 문장) + 본문으로 분리해 가독성 확보
+  const dot = D.lede.indexOf(". ");
+  const headLine = dot > 0 ? D.lede.slice(0, dot + 1) : D.lede;
+  const headDeck = dot > 0 ? D.lede.slice(dot + 2) : "";
 
   return (
     <>
@@ -71,7 +79,8 @@ export default function FrontView({ D }: { D: FrontPage }) {
             오전 8:00 갱신 · 지금 <span className="tnum" data-clock style={{ marginLeft: 2 }}>08:00</span>
           </span>
         </div>
-        <h1 className="display reveal">{D.lede}</h1>
+        <h1 className="display reveal">{headLine}</h1>
+        {headDeck && <p className="masthead-lede reveal">{headDeck}</p>}
       </header>
 
       {!hasIssue ? (
@@ -156,10 +165,9 @@ export default function FrontView({ D }: { D: FrontPage }) {
                   <div className="row"><span className="badge-dot" style={{ background: "var(--neg)", width: 9, height: 9 }} /><span className="nm">부정</span><span className="pc tnum">{agg.neg}%</span></div>
                 </div>
               </div>
-              {(posNote || negNote) && (
+              {frontNotes.length > 0 && (
                 <div className="sent-notes">
-                  {posNote && <div className="row"><span className="badge badge-pos" style={{ flex: "0 0 auto" }}>긍정</span><span className="txt">{posNote.topic}</span></div>}
-                  {negNote && <div className="row"><span className="badge badge-neg" style={{ flex: "0 0 auto" }}>부정</span><span className="txt">{negNote.topic}</span></div>}
+                  <DiscussionList items={frontNotes} />
                 </div>
               )}
             </section>

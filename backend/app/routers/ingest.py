@@ -89,7 +89,7 @@ def ingest(
         for inc in ig.incidents:
             db.add(m.Alert(issue_id=issue.id, game_id=g.id, game_name=g.name, title=inc.title, severity=inc.severity, heat=0))
         for d in ig.discussions:
-            db.add(m.Discussion(game_id=g.id, issue_id=issue.id, topic=d.topic, sentiment=d.sentiment, summary=d.summary, source=d.source))
+            db.add(m.Discussion(game_id=g.id, issue_id=issue.id, topic=d.topic, sentiment=d.sentiment, summary=d.summary, source=d.source, source_url=d.source_url))
 
     # 4) 크로스 게임 알림
     for al in payload.alerts:
