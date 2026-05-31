@@ -22,7 +22,7 @@
       "sentiment": { "pos": 71, "neu": 20, "neg": 9 },
       "news": [
         { "source": "공식", "title": "버전 3.4 ‘사이버펑크: 엣지러너스’ 콜라보 트레일러 공개 — 6월 10일 루시·레베카 참전", "url": "https://www.inven.co.kr/webzine/news/?news=316188", "tag": "콜라보", "time": "07:50", "imp": 92, "summary": "쿠로게임즈가 6월 10일 출시되는 버전 3.4에서 넷플릭스 애니메이션 ‘사이버펑크: 엣지러너스’와의 첫 크로스오버 콜라보를 공개했다. 트레일러에는 루시·레베카·데이비드가 등장하며, 레베카는 이벤트 기간 접속 시 무료로 배포된다. 한정 콜라보 캐릭터 루시(쿠시나다 루시나·회절 메인 딜러)는 전용 배너로 등장하고, 픽업 순서 등 세부 정보는 6월 중 추가 공개될 예정이다." },
-        { "source": "공식", "title": "2주년 버전 3.3 ‘별바다의 끝에서 닿은 메아리’ 진행 — 신규 5성 히유키·데니아", "url": "https://namu.wiki/w/명조: 워더링 웨이브", "tag": "이벤트", "time": "07:10", "imp": 82, "summary": "출시 2주년 기념 버전 3.3 ‘별바다의 끝에서 닿은 메아리’가 4월 30일부터 약 39일간 진행 중이다. 신규 5성 공명자 히유키와 데니아가 1·2페이즈로 나뉘어 등장하며, 신규 지역과 제3장 후반부 메인 스토리가 함께 추가됐다." },
+        { "source": "공식", "title": "2주년 버전 3.3 ‘별바다의 끝에서 닿은 메아리’ 진행 — 신규 5성 히유키·데니아", "url": "https://namu.wiki/w/명조: 워더링 웨이브", "tag": "이벤트", "time": "07:10", "imp": 82, "image": "https://upload3.inven.co.kr/upload/2026/04/26/bbs/i1366034566.png?MW=800", "summary": "출시 2주년 기념 버전 3.3 ‘별바다의 끝에서 닿은 메아리’가 4월 30일부터 약 39일간 진행 중이다. 신규 5성 공명자 히유키와 데니아가 1·2페이즈로 나뉘어 등장하며, 신규 지역과 제3장 후반부 메인 스토리가 함께 추가됐다." },
         { "source": "공식", "title": "역대 최대 규모 무료 ‘별의 소리’ 배포 진행", "url": "https://wutheringwaves.kurogames.com/kr/main", "tag": "이벤트", "time": "06:30", "imp": 70, "summary": "2주년을 맞아 역대 최대 규모의 무료 ‘별의 소리(가챠 재화)’ 배포가 진행 중이다. 넉넉한 보상에 복귀·신규 유저 유입이 늘면서 커뮤니티 분위기가 우호적이다." },
         { "source": "공식", "title": "신규 지역 ‘어둠의 평원’·제3장 후반 스토리 추가", "url": "https://namu.wiki/w/명조: 워더링 웨이브", "tag": "로드맵", "time": "05:40", "imp": 66, "summary": "버전 3.3에서 신규 탐험 지역 ‘어둠의 평원’과 제3장 후반부 메인 스토리가 공개됐다. 세계관 확장과 함께 신규 지역 탐사 보상이 제공된다." }
       ],
@@ -38,15 +38,15 @@
     {
       "slug": "starrail",
       "image": "https://hngameguide.com/wp-content/uploads/2026/04/hsr-43-mortenax-blade-featured.jpg",
-      "summary": "스타레일은 4.2 후반 신규 5성 ‘에반시아’ 픽업과 함께, 4.4 ‘Fate’ 콜라보(길가메시·토오사카 린) 예고로 떠들썩하다. 콜라보 기대감과 파워 인플레이션·수익화 우려가 공존한다.",
+      "summary": "스타레일은 4.2 후반 신규 5성 ‘에바네시아’ 픽업과 함께, 4.4 ‘Fate’ 콜라보(길가메시·토오사카 린) 예고로 떠들썩하다. 콜라보 기대감과 파워 인플레이션·수익화 우려가 공존한다.",
       "sentiment": { "pos": 52, "neu": 28, "neg": 20 },
       "news": [
         { "source": "공식", "title": "4.4 버전 ‘Fate’ 콜라보 — 길가메시·토오사카 린 참전 예고", "url": "https://game8.co/games/Honkai-Star-Rail/archives/408381", "tag": "콜라보", "time": "07:35", "imp": 90, "summary": "‘Fate/stay night [Unlimited Blade Works]’ 콜라보 2차 웨이브로 길가메시와 토오사카 린이 플레이어블 캐릭터로 등장한다. 콜라보 기간 로그인 시 아처 또는 길가메시 중 하나를 무료로 수령할 수 있어 기대가 크다. 각 캐릭터 전용 광추(무기)도 함께 제공된다." },
-        { "source": "공식", "title": "4.2 2페이즈 신규 5성 ‘에반시아’ 픽업 진행 (~6/2)", "url": "https://game8.co/games/Honkai-Star-Rail/archives/408381", "tag": "신규캐릭터", "time": "06:50", "imp": 80, "summary": "4.2 버전 2페이즈 신규 5성 ‘에반시아’(물리·환락) 픽업이 5월 13일부터 6월 2일까지 진행된다. 신규 메커니즘과 함께 환락 계열 빌드의 폭을 넓힌다는 평가다." },
+        { "source": "공식", "title": "4.2 2페이즈 신규 5성 ‘에바네시아’ 픽업 진행 (~6/2)", "url": "https://game8.co/games/Honkai-Star-Rail/archives/408381", "tag": "신규캐릭터", "time": "06:50", "imp": 80, "summary": "4.2 버전 2페이즈 신규 5성 ‘에바네시아’(물리·환락) 픽업이 5월 13일부터 6월 2일까지 진행된다. 신규 메커니즘과 함께 환락 계열 빌드의 폭을 넓힌다는 평가다." },
         { "source": "공식", "title": "4.3 신규 5성 ‘모르테낙스 블레이드’ 6월 초 등장 예고", "url": "https://game8.co/games/Honkai-Star-Rail/archives/415899", "tag": "로드맵", "time": "05:55", "imp": 72, "summary": "4.3 버전 신규 5성 ‘모르테낙스 블레이드’(화염·공허)가 6월 초 등장 예정이다. 공허 메타 재편이 예상되며, 4.3은 6월 3일 출시로 알려졌다." }
       ],
       "events": [
-        { "title": "에반시아 픽업 종료", "start_date": "2026-06-02", "type": "이벤트", "source_url": "https://game8.co/games/Honkai-Star-Rail/archives/408381" },
+        { "title": "에바네시아 픽업 종료", "start_date": "2026-06-02", "type": "이벤트", "source_url": "https://game8.co/games/Honkai-Star-Rail/archives/408381" },
         { "title": "4.3 버전 업데이트", "start_date": "2026-06-03", "type": "업데이트", "source_url": "https://game8.co/games/Honkai-Star-Rail/archives/415899" }
       ],
       "incidents": [
@@ -60,13 +60,13 @@
     {
       "slug": "nikke",
       "image": "https://static.inven.co.kr/column/2026/04/23/news/i1975260356.jpg",
-      "summary": "니케는 3.5주년 업데이트가 이어지며 분위기가 좋다. 풀보이스 스토리 ‘STAR ANIS’와 무료 SSR 배포가 호평받았고, 오버스펙 SSR ‘아니스: 스타’ 픽업이 마무리됐다.",
+      "summary": "니케는 3.5주년 업데이트가 이어지는 가운데, 6월 중 3주간 진행될 대형 이벤트가 개발자 노트로 예고돼 기대가 높다. 신규 니케 ‘프리카’가 출시돼 민트와의 조합이 주목받았고, 스텔라 블레이드 콜라보 픽업도 진행 중이다.",
       "sentiment": { "pos": 68, "neu": 22, "neg": 10 },
       "news": [
-        { "source": "공식", "title": "3.5주년 풀보이스 스토리 이벤트 ‘STAR ANIS’ 진행", "url": "https://nikke.inven.co.kr/", "tag": "이벤트", "time": "07:25", "imp": 80, "summary": "레벨 인피니트가 3.5주년을 맞아 4월 23일 대규모 업데이트를 실시했다. 아이돌을 메인 컨셉으로 한 풀보이스 스토리 이벤트 ‘STAR ANIS’가 전개되며, 방주 아이돌 T.T STAR의 컴백 무대와 카운터스 스쿼드의 성장을 그린다." },
-        { "source": "공식", "title": "오버스펙 SSR ‘아니스: 스타’ 픽업 종료 — 성능 호평", "url": "https://namu.wiki/w/승리의 여신: 니케", "tag": "신규캐릭터", "time": "06:40", "imp": 76, "summary": "확장 무장을 장착해 강력해진 오버스펙 SSR ‘아니스: 스타’ 특별 모집이 진행됐다. 파티 구조에 따라 활용도가 갈리는 핵심 캐릭터로, 성능 평가가 높았다." },
-        { "source": "공식", "title": "아니스·네온 이격(버스트) 추가", "url": "https://namu.wiki/w/승리의 여신: 니케", "tag": "신규캐릭터", "time": "05:30", "imp": 68, "summary": "‘아니스: 스타’와 함께 전용 바디로 화력을 끌어올린 ‘네온: 비전 아이’ 등 이격 캐릭터가 추가됐다. 기존 캐릭터의 재평가로 이어졌다." },
-        { "source": "공식", "title": "3.5주년 무료 SSR 배포·로그인 보상 진행", "url": "https://nikke.inven.co.kr/", "tag": "이벤트", "time": "04:50", "imp": 64, "summary": "3.5주년 기념으로 게임 플레이를 통한 160회 이상의 무료 모집 기회와 무료 SSR 니케, 풍성한 로그인 보상이 제공됐다." }
+        { "source": "인벤", "title": "개발자 노트 — 6월 3주간 ‘대형 이벤트’ 예고, 전용 필드·풀더빙", "url": "https://www.inven.co.kr/webzine/news/?news=316951&site=nikke", "tag": "이벤트", "time": "05.29", "imp": 84, "image": "https://static.inven.co.kr/column/2026/05/29/news/i1722181590.jpg", "summary": "승리의 여신: 니케가 5월 개발자 노트를 통해 6월 중 3주간 진행될 대형 이벤트를 예고했다. 전용 필드와 풀더빙이 포함된 호화 사양으로, 오랜만에 반가운 캐릭터의 픽업 모집이 예고돼 기대감이 높다. 해머링·드릴리·메티스 등 다양한 스쿼드가 주인공 후보로 거론되고 있다." },
+        { "source": "인벤", "title": "신규 니케 ‘프리카’ 출시 — 민트와 강력한 조합", "url": "https://www.inven.co.kr/webzine/news/?news=316907&site=nikke", "tag": "신규캐릭터", "time": "05.28", "imp": 80, "image": "https://static.inven.co.kr/column/2026/05/28/news/i1944952729.png", "summary": "5월 28일 업데이트로 신규 니케 ‘프리카’가 출시됐다. 민트의 버프 효율을 극대화해 높은 화력을 내면서도 파티 전체 상시 회복으로 안정성을 제공한다. 스노우화이트 등 관통·투사체 딜러와 시너지가 뛰어나다." },
+        { "source": "인벤", "title": "3.5주년 스토리 ‘별이여 영원히 빛나라’ — 테트라 라인 조명", "url": "https://www.inven.co.kr/webzine/news/?news=316832&site=nikke", "tag": "이벤트", "time": "05.27", "imp": 66, "image": "https://static.inven.co.kr/column/2026/05/27/news/i1631019759.jpg", "summary": "3.5주년 스토리 이벤트 ‘별이여 영원히 빛나라’를 통해 엔터테인먼트 기업 ‘테트라 라인’의 과거와 현재가 조명됐다. 머스탱 CEO 산하의 개성 있는 니케들과 카페 스위티가 중심으로 다뤄졌다." },
+        { "source": "인벤", "title": "민트 + 스텔라 블레이드 콜라보 포함 3중 픽업 진행", "url": "https://www.inven.co.kr/webzine/news/?news=316667&site=nikke", "tag": "콜라보", "time": "05.21", "imp": 72, "image": "https://static.inven.co.kr/column/2026/05/21/news/i1551097691.png", "summary": "민트와 스텔라 블레이드 콜라보 니케 2종을 포함한 3중 픽업이 진행 중이다. 민트는 힐과 화력 버프를 번갈아 부여하는 2버스트 서포터로, 스노우화이트와의 궁합이 특히 좋다는 평가다." }
       ],
       "events": [],
       "incidents": [],
@@ -140,7 +140,7 @@
       "sentiment": { "pos": 55, "neu": 36, "neg": 9 },
       "news": [
         { "source": "공식 X", "title": "주요 캐릭터 ‘탐정·알프·아르고스’ 순차 공개", "url": "https://x.com/SilverPalace_KO", "tag": "신규캐릭터", "time": "06:45", "imp": 62, "summary": "5월 중순부터 공식 채널을 통해 주요 캐릭터 탐정·알프·아르고스가 순차적으로 공개되며 팬층 유입을 도모하고 있다. 빅토리아 시대풍 아트 스타일에 호평이 이어졌다." },
-        { "source": "공식", "title": "공식 크리에이터 상시 모집 시작", "url": "https://silverpalace.elementagames.com/ko-kr/", "tag": "이벤트", "time": "05:00", "imp": 50, "summary": "4월 2일 공식 크리에이터 상시 모집을 시작했다. Elementa가 개발·글로벌 퍼블리싱하는 추리 오픈월드 RPG로, 정식 출시일은 아직 공개되지 않았다." }
+        { "source": "공식", "title": "공식 크리에이터 상시 모집 시작", "url": "https://silverpalace.elementagames.com/ko-kr/", "tag": "이벤트", "time": "05:00", "imp": 50, "image": "https://silverpalace.elementagames.com/_nuxt/bg.B2KAiNSj.jpg", "summary": "4월 2일 공식 크리에이터 상시 모집을 시작했다. Elementa가 개발·글로벌 퍼블리싱하는 추리 오픈월드 RPG로, 정식 출시일은 아직 공개되지 않았다." }
       ],
       "events": [],
       "incidents": [],

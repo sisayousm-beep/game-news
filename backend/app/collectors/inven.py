@@ -18,15 +18,11 @@ from bs4 import BeautifulSoup
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
 
 # 게임 slug → 인벤 site 코드.
-# *활성* 섹션만 등록(최근 기사 존재). 비활성/미존재 게임은 웹검색 방식 유지:
-#   - bluearchive(인벤 섹션 2022년 이후 방치), zzz(2025-04), silverpelis·duet(섹션 없음)
+# 주의: `?site=<코드>`는 *전용 포털이 있는 게임*만 게임별 뉴스를 준다(나머지는 인벤 전체
+# 일반뉴스를 그대로 노출 → 게임 무관). 확인 결과 nikke만 게임 전용 기사 반환.
+# arknights/wuwa/starrail/brown2 등은 일반뉴스라 제외 → 이들은 웹검색 방식 유지.
 SITE_CODES = {
     "nikke": "nikke",
-    "arknights": "arknights",
-    "starrail": "hkstarrail",
-    "wuwa": "wuthering",
-    "brown2": "browndust2",
-    "genshin": "genshin",
 }
 
 _DATE_RE = re.compile(r"(20\d\d-\d\d-\d\d)\s+(\d\d:\d\d)")
