@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LOGIA · 디자인 시스템 매뉴얼</title>
+<link rel="stylesheet" as="style" crossorigin
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+<link rel="stylesheet" href="assets/logia.css" />
+<style>
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .sec { padding: 64px 0; border-top: 1px solid var(--line); }
+  .sec:first-of-type { border-top: 0; }
+  .sec-num { font-family: ui-monospace, Menlo, monospace; font-size: .72rem; color: var(--primary); letter-spacing: .1em; }
+  .sec-title { font-size: 2rem; font-weight: 800; letter-spacing: -.035em; margin: 6px 0 4px; }
+  .sec-sub { color: var(--muted); font-size: .95rem; max-width: 56ch; line-height: 1.6; }
+  .grid { display: grid; gap: 16px; }
+  .swatch { border-radius: var(--r-md); height: 96px; display: flex; align-items: flex-end; padding: 10px 12px; color: #fff; font-weight: 700; font-size: .82rem; box-shadow: var(--sh-1); }
+  .swatch small { display:block; font-weight: 500; font-family: ui-monospace, monospace; font-size: .68rem; opacity: .82; letter-spacing: .02em; }
+  .tile { border:1px solid var(--line); border-radius: var(--r-md); padding: 16px; background: var(--surface); }
+  .lbl { font-size: .72rem; color: var(--muted); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 10px; }
+</style>
+</head>
+<body data-stagger>
+
+<!-- ============ HERO ============ -->
+<header class="wrap" style="padding-top:72px;padding-bottom:24px;">
+  <div class="reveal" style="display:flex;align-items:center;gap:10px;margin-bottom:28px;">
+    <div style="width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--sky),var(--primary));box-shadow:var(--sh-glow);"></div>
+    <span style="font-weight:800;font-size:1.15rem;letter-spacing:-.03em;">LOGIA</span>
+    <span class="badge badge-blue" style="margin-left:4px;">Design System</span>
+  </div>
+  <p class="eyebrow reveal" style="margin:0 0 14px;">Brand Manual · v1.0 · 2026</p>
+  <h1 class="display reveal" style="font-size:clamp(2.6rem,7vw,4.6rem);max-width:18ch;margin:0;">
+    가볍고, 부드럽고,<br><span style="color:var(--primary);">유연하게</span> 읽는 게임 정보.
+  </h1>
+  <p class="reveal" style="font-size:1.12rem;color:var(--ink-sec);line-height:1.65;max-width:54ch;margin:24px 0 0;">
+    신문 지면의 딱딱함을 걷어내고, 아침에 상쾌하게 펼쳐 읽는
+    <strong style="color:var(--ink);">정보 큐레이션 사이트</strong>로 재설계했습니다.
+    밝은 푸른 톤, 넉넉한 여백, 절제된 마이크로 인터랙션 — 사람이 다듬은 디테일을 지향합니다.
+  </p>
+  <div class="reveal" style="display:flex;gap:10px;margin-top:30px;flex-wrap:wrap;">
+    <a class="btn btn-primary" href="LOGIA Main.html" style="text-decoration:none;">메인 브리핑 페이지 보기 →</a>
+    <a class="btn btn-ghost" href="#colors" style="text-decoration:none;">토큰 살펴보기</a>
+  </div>
+</header>
+
+<main>
+<!-- ============ DESIGN PRINCIPLES ============ -->
+<section class="sec wrap" data-stagger>
+  <span class="sec-num">00 — PRINCIPLES</span>
+  <h2 class="sec-title">4가지 디자인 철학</h2>
+  <div class="grid reveal" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin-top:28px;">
+    <div class="tile lift">
+      <div style="font-size:1.5rem;font-weight:800;color:var(--primary);">01</div>
+      <h3 style="margin:8px 0 6px;font-size:1.05rem;font-weight:700;">상투적 템플릿 탈피</h3>
+      <p style="margin:0;color:var(--ink-sec);font-size:.9rem;line-height:1.6;">기계적 격자를 피하고 대담한 여백과 타이포 강약으로 리듬을 만든다.</p>
+    </div>
+    <div class="tile lift">
+      <div style="font-size:1.5rem;font-weight:800;color:var(--primary);">02</div>
+      <h3 style="margin:8px 0 6px;font-size:1.05rem;font-weight:700;">신문 → 정보 사이트</h3>
+      <p style="margin:0;color:var(--ink-sec);font-size:.9rem;line-height:1.6;">둥근 모서리 카드, 최고 수준의 가독성, 캐주얼하고 유연한 배치.</p>
+    </div>
+    <div class="tile lift">
+      <div style="font-size:1.5rem;font-weight:800;color:var(--primary);">03</div>
+      <h3 style="margin:8px 0 6px;font-size:1.05rem;font-weight:700;">절제된 인터랙션</h3>
+      <p style="margin:0;color:var(--ink-sec);font-size:.9rem;line-height:1.6;">호버 리프트·순차 등장·탭 슬라이딩. 번쩍임 없이 정성스럽게.</p>
+    </div>
+    <div class="tile lift">
+      <div style="font-size:1.5rem;font-weight:800;color:var(--primary);">04</div>
+      <h3 style="margin:8px 0 6px;font-size:1.05rem;font-weight:700;">밝은 푸른 무드</h3>
+      <p style="margin:0;color:var(--ink-sec);font-size:.9rem;line-height:1.6;">화이트·소프트 그레이 베이스 + 청량한 스카이 블루 포인트.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COLORS ============ -->
+<section class="sec wrap" id="colors" data-stagger>
+  <span class="sec-num">01 — COLOR</span>
+  <h2 class="sec-title">컬러 칩</h2>
+  <p class="sec-sub">밝은 푸른 아이덴티티 + 쿨한 소프트 화이트 베이스. 감성(긍정/중립/부정)과 심각도는 의미 구분이 필요한 곳에만 제한적으로 사용합니다.</p>
+
+  <div class="reveal" style="margin-top:28px;">
+    <p class="lbl">Primary · Sky</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));">
+      <div class="swatch" style="background:var(--primary);">Primary<small>#2F6BFF · azure</small></div>
+      <div class="swatch" style="background:var(--primary-strong);">Strong<small>#1E50E0</small></div>
+      <div class="swatch" style="background:var(--sky);">Sky<small>#5DA2FF</small></div>
+      <div class="swatch" style="background:var(--sky-soft);color:var(--primary-ink);">Sky Soft<small>#E7F0FF</small></div>
+      <div class="swatch" style="background:var(--sky-softer);color:var(--primary-ink);">Sky Softer<small>#F2F7FF</small></div>
+    </div>
+  </div>
+
+  <div class="reveal" style="margin-top:24px;">
+    <p class="lbl">Neutrals (cool, blue-slate)</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr));">
+      <div class="swatch" style="background:var(--ink);">Ink<small>#121A28</small></div>
+      <div class="swatch" style="background:var(--ink-sec);">Ink Sec<small>#475569</small></div>
+      <div class="swatch" style="background:var(--muted);">Muted<small>#8593A8</small></div>
+      <div class="swatch" style="background:var(--bg);color:var(--ink);border:1px solid var(--line);">BG<small>#F5F8FD</small></div>
+      <div class="swatch" style="background:var(--surface);color:var(--ink);border:1px solid var(--line);">Surface<small>#FFFFFF</small></div>
+    </div>
+  </div>
+
+  <div class="reveal" style="margin-top:24px;">
+    <p class="lbl">Sentiment · Severity</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr));">
+      <div class="swatch" style="background:var(--pos);">긍정<small>#18B7A6</small></div>
+      <div class="swatch" style="background:var(--neu);">중립<small>#A9B4C4</small></div>
+      <div class="swatch" style="background:var(--neg);">부정<small>#FB6F8C</small></div>
+      <div class="swatch" style="background:var(--warn);">주의<small>#F5A524</small></div>
+      <div class="swatch" style="background:var(--watch);">관찰<small>#5DA2FF</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TYPE ============ -->
+<section class="sec wrap" data-stagger>
+  <span class="sec-num">02 — TYPE</span>
+  <h2 class="sec-title">타이포그래피</h2>
+  <p class="sec-sub"><strong style="color:var(--ink);">Pretendard Variable</strong> 단일 패밀리. 두께(300–800)와 크기 대비만으로 위계를 만들어 사람이 조율한 인상을 줍니다. 숫자는 tabular-nums.</p>
+
+  <div class="reveal tile" style="margin-top:28px;padding:32px;">
+    <div style="border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:20px;">
+      <span class="lbl">Display · 800 · -3.5%</span>
+      <div class="display" style="font-size:3.4rem;">오늘의 브리핑</div>
+    </div>
+    <div style="border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:18px;">
+      <span class="lbl">Headline · 700</span>
+      <div style="font-size:1.7rem;font-weight:700;letter-spacing:-.03em;">신규 이벤트가 가장 큰 화제였습니다</div>
+    </div>
+    <div style="border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:18px;">
+      <span class="lbl">Body · 400 · 1.78 line-height</span>
+      <p class="lede-body" style="margin:0;font-size:1.02rem;">오늘 블루 아카이브는 신규 이벤트 발표가 가장 큰 화제였습니다. 신규 학생 공개에 대한 반응은 긍정적이며, 총력전 변경안에 대해서는 일부 논란이 존재합니다.</p>
+    </div>
+    <div style="display:flex;gap:40px;flex-wrap:wrap;">
+      <div><span class="lbl">Eyebrow · 700 · 14% tracking</span><div class="eyebrow">TODAY'S BRIEFING</div></div>
+      <div><span class="lbl">Numeral · tabular</span><div class="tnum" style="font-size:1.6rem;font-weight:800;">62% · ₩18,000</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ANIMATION ============ -->
+<section class="sec wrap" data-stagger>
+  <span class="sec-num">03 — MOTION</span>
+  <h2 class="sec-title">애니메이션 규칙</h2>
+  <p class="sec-sub">이징 <code style="font-family:monospace;font-size:.85rem;color:var(--primary);">cubic-bezier(.22,1,.36,1)</code> 기본. 등장 0.6s, 전환 0.28s, 즉답 0.16s. <code style="font-family:monospace;font-size:.85rem;color:var(--primary);">prefers-reduced-motion</code> 존중.</p>
+  <div class="grid reveal" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:28px;">
+    <div class="tile lift" style="cursor:pointer;">
+      <p class="lbl">Hover Lift</p>
+      <p style="margin:0;font-size:.9rem;color:var(--ink-sec);">이 카드에 마우스를 올려보세요. -4px 상승 + 그림자 확장.</p>
+    </div>
+    <div class="tile" style="overflow:hidden;">
+      <p class="lbl">Stagger Reveal</p>
+      <p style="margin:0;font-size:.9rem;color:var(--ink-sec);">스크롤 진입 시 70ms 간격으로 순차 등장.</p>
+    </div>
+    <div class="tile" style="overflow:hidden;">
+      <p class="lbl">Sliding Tabs</p>
+      <div class="tabs" data-tabs style="display:flex;gap:18px;border-bottom:1px solid var(--line);margin-top:6px;">
+        <button class="is-active" data-tab="x" style="background:none;border:0;padding:8px 0;font-weight:700;cursor:pointer;color:var(--ink);">전체</button>
+        <button data-tab="y" style="background:none;border:0;padding:8px 0;font-weight:600;cursor:pointer;color:var(--muted);">뉴스</button>
+        <button data-tab="z" style="background:none;border:0;padding:8px 0;font-weight:600;cursor:pointer;color:var(--muted);">일정</button>
+        <span class="tab-ink"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPONENTS ============ -->
+<section class="sec wrap" data-stagger>
+  <span class="sec-num">04 — COMPONENTS</span>
+  <h2 class="sec-title">컴포넌트</h2>
+  <p class="sec-sub">shadcn/ui 위에 얹는 LOGIA 프리미티브. 둥근 라운딩, 소프트 섀도우, 푸른 틴트 상태값이 일관됩니다.</p>
+
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:28px;">
+    <div class="tile reveal">
+      <p class="lbl">Buttons</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+        <button class="btn btn-primary">기본</button>
+        <button class="btn btn-soft">소프트</button>
+        <button class="btn btn-ghost">고스트</button>
+      </div>
+    </div>
+    <div class="tile reveal">
+      <p class="lbl">Chips / Filter</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <span class="chip is-active">전체</span>
+        <span class="chip">이벤트</span>
+        <span class="chip">신규캐릭터</span>
+        <span class="chip">패치</span>
+      </div>
+    </div>
+    <div class="tile reveal">
+      <p class="lbl">Badges</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <span class="badge badge-blue">공식</span>
+        <span class="badge badge-warn">주의</span>
+        <span class="badge badge-watch">관찰</span>
+        <span class="badge badge-low">최저가</span>
+      </div>
+    </div>
+    <div class="tile reveal">
+      <p class="lbl">Sentiment Bar</p>
+      <div class="sentiment" style="margin:14px 0 10px;">
+        <span class="s-pos" data-fill="62"></span>
+        <span class="s-neu" data-fill="25"></span>
+        <span class="s-neg" data-fill="13"></span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:.78rem;font-weight:600;">
+        <span style="color:var(--pos);">긍정 62%</span>
+        <span style="color:var(--neu);">중립 25%</span>
+        <span style="color:var(--neg);">부정 13%</span>
+      </div>
+    </div>
+    <div class="tile reveal" style="grid-column:span 1;">
+      <p class="lbl">Key Visual Placeholder</p>
+      <div class="kv" data-label="KEY VISUAL · 블루 아카이브" style="height:120px;border-radius:14px;"></div>
+    </div>
+    <div class="tile reveal">
+      <p class="lbl">Steam Price Row</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+        <div>
+          <div style="font-weight:700;font-size:.95rem;">Balatro</div>
+          <div style="color:var(--muted);font-size:.78rem;text-decoration:line-through;" class="tnum">₩25,000</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="badge badge-low" style="margin-bottom:4px;">-50% 최저가</span>
+          <div class="tnum" style="font-weight:800;color:var(--primary);font-size:1.05rem;">₩12,500</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap" style="padding:48px 0 80px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;">
+  LOGIA Design System · Next.js · TailwindCSS · shadcn/ui · Pretendard ·
+  <a href="LOGIA Main.html" style="color:var(--primary);text-decoration:none;font-weight:600;">메인 페이지 →</a>
+</footer>
+</main>
+
+<script src="assets/logia.js"></script>
+</body>
+</html>

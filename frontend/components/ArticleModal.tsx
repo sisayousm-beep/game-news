@@ -21,31 +21,31 @@ export default function ArticleModal({ a, onClose }: { a: Article | null; onClos
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <article className="modal-panel" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close mono" onClick={onClose} aria-label="닫기">✕</button>
+        <button className="modal-x" onClick={onClose} aria-label="닫기">✕</button>
 
-        {a.image && (
-          <div className="modal-photo">
-            <img src={a.image} alt="" referrerPolicy="no-referrer" />
-          </div>
-        )}
+        <div className={"kv modal-photo" + (a.image ? " has-img" : "")} data-label={`KEY VISUAL · ${a.source}`}>
+          {a.image && <img src={a.image} alt="" referrerPolicy="no-referrer" />}
+        </div>
 
         <div className="modal-content">
-          <div className="modal-meta mono">
+          <div className="modal-meta">
             <SourceDot source={a.source} />
             <span>{a.source}</span>
-            <span className="sep">·</span>
+            <span>·</span>
             <span>{a.time}</span>
-            <Tag accent={a.tag === "이벤트" || a.tag === "신규캐릭터"}>{a.tag}</Tag>
+            <Tag tone="blue">{a.tag}</Tag>
           </div>
 
-          <h2 className="modal-title serif">{a.title}</h2>
+          <h2 className="modal-title">{a.title}</h2>
 
-          <p className="modal-summary">
-            {a.summary || "이 소식에 대한 상세 요약이 아직 준비되지 않았습니다."}
-          </p>
+          {(a.summary || "이 소식에 대한 상세 요약이 아직 준비되지 않았습니다.")
+            .split("\n\n")
+            .map((p, i) => (
+              <p key={i} className="modal-summary">{p}</p>
+            ))}
 
           {a.url && (
-            <a className="modal-src mono" href={a.url} target="_blank" rel="noreferrer">
+            <a className="btn btn-primary" href={a.url} target="_blank" rel="noreferrer">
               원문 보기 ↗
             </a>
           )}

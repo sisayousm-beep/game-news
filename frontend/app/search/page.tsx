@@ -27,8 +27,8 @@ export default function SearchPage() {
   return (
     <div>
       <div className="page-head">
-        <h1 className="page-title serif">검색</h1>
-        <span className="page-note mono">제목 · 본문 · 태그</span>
+        <h1>검색</h1>
+        <span className="note">제목 · 본문 · 태그</span>
       </div>
 
       <form className="search-box" onSubmit={run}>
@@ -39,16 +39,16 @@ export default function SearchPage() {
           onChange={(e) => setQ(e.target.value)}
           autoFocus
         />
-        <button className="search-btn mono" type="submit">검색</button>
+        <button className="btn btn-primary" type="submit">검색</button>
       </form>
 
-      {loading && <p className="empty mono">검색 중…</p>}
+      {loading && <p className="empty">검색 중…</p>}
       {!loading && results !== null && (
         results.length === 0 ? (
-          <p className="empty mono">“{q}” 검색 결과가 없습니다.</p>
+          <p className="empty">“{q}” 검색 결과가 없습니다.</p>
         ) : (
           <>
-            <p className="page-note mono" style={{ marginBottom: 12 }}>{results.length}건</p>
+            <p className="note" style={{ marginBottom: 8, color: "var(--muted)" }}>{results.length}건</p>
             <div className="news-list">
               {results.map((a, i) => <NewsItem key={i} a={a} onOpen={setOpen} />)}
             </div>

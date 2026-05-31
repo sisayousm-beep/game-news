@@ -5,14 +5,12 @@ import type { EventItem } from "@/lib/api";
 
 const WEEKDAYS = ["일", "월", "화", "수", "목", "금", "토"];
 
-// 일정 유형 → 색 클래스
 function typeClass(t: string): string {
   if (t === "점검" || t === "업데이트") return "ce-update";
   if (t === "방송") return "ce-live";
   if (t === "콜라보") return "ce-collab";
   return "ce-event";
 }
-
 function ymKey(y: number, m: number) {
   return `${y}-${String(m + 1).padStart(2, "0")}`;
 }
@@ -20,14 +18,10 @@ function ymKey(y: number, m: number) {
 export default function CalendarView({ events }: { events: EventItem[] }) {
   const valid = useMemo(() => events.filter((e) => e.start), [events]);
 
-  // 기본 표시 월: 오늘 이후 가장 빠른 일정의 월(없으면 가장 빠른 일정, 없으면 오늘)
   const initial = useMemo(() => {
     const today = new Date();
     const todayISO = today.toISOString().slice(0, 10);
-    const upcoming = valid
-      .map((e) => e.start as string)
-      .filter((d) => d >= todayISO)
-      .sort();
+    const upcoming = valid.map((e) => e.start as string).filter((d) => d >= todayISO).sort();
     const base = upcoming[0] || valid.map((e) => e.start as string).sort()[0];
     const d = base ? new Date(base + "T00:00:00") : today;
     return { y: d.getFullYear(), m: d.getMonth() };
@@ -35,14 +29,12 @@ export default function CalendarView({ events }: { events: EventItem[] }) {
 
   const [cur, setCur] = useState(initial);
 
-  // 날짜별 일정 묶기 (start 기준)
   const byDay = useMemo(() => {
     const map: Record<string, EventItem[]> = {};
     for (const e of valid) (map[e.start as string] ??= []).push(e);
     return map;
   }, [valid]);
 
-  // 월 그리드 (앞뒤 빈칸 포함)
   const cells = useMemo(() => {
     const first = new Date(cur.y, cur.m, 1);
     const startPad = first.getDay();
@@ -64,66 +56,68 @@ export default function CalendarView({ events }: { events: EventItem[] }) {
     setCur({ y: d.getFullYear(), m: d.getMonth() });
   };
 
-  // 다가오는 일정 리스트 (오늘 이후)
   const upcomingList = useMemo(
     () => valid.filter((e) => (e.start as string) >= todayISO).sort((a, b) => (a.start as string).localeCompare(b.start as string)),
     [valid, todayISO],
   );
 
   return (
-    <div className="cal-wrap">
+    <div>
       <div className="cal-head">
-        <button className="cal-nav mono" onClick={() => move(-1)} aria-label="이전 달">‹</button>
-        <div className="cal-title serif">{cur.y}년 {cur.m + 1}월</div>
-        <button className="cal-nav mono" onClick={() => move(1)} aria-label="다음 달">›</button>
-        <span className="cal-count mono">이 달 일정 {monthEventCount}건</span>
+        <button className="cal-nav" onClick={() => move(-1)} aria-label="이전 달">‹</button>
+        <div className="cal-title">{cur.y}년 {cur.m + 1}월</div>
+        <button className="cal-nav" onClick={() => move(1)} aria-label="다음 달">›</button>
+        <span className="cal-count">이 달 일정 {monthEventCount}건</span>
       </div>
 
-      <div className="cal-grid">
-        {WEEKDAYS.map((w, i) => (
-          <div key={w} className={"cal-wd mono" + (i === 0 ? " sun" : i === 6 ? " sat" : "")}>{w}</div>
-        ))}
-        {cells.map((c, i) => (
-          <div key={i} className={"cal-cell" + (!c ? " empty" : "") + (c && c.iso === todayISO ? " today" : "")}>
-            {c && (
-              <>
-                <span className="cal-day mono">{c.day}</span>
-                <div className="cal-evts">
-                  {(byDay[c.iso] || []).map((e, j) => (
-                    <span key={j} className={"cal-evt " + typeClass(e.type)} title={`${e.game ?? ""} · ${e.title}`}>
-                      <span className="cal-evt-game">{e.game}</span>
-                      <span className="cal-evt-title">{e.title}</span>
-                    </span>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-        ))}
+      <div className="card glass" style={{ padding: 16 }}>
+        <div className="cal-grid">
+          {WEEKDAYS.map((w, i) => (
+            <div key={w} className={"cal-wd" + (i === 0 ? " sun" : i === 6 ? " sat" : "")}>{w}</div>
+          ))}
+          {cells.map((c, i) => (
+            <div key={i} className={"cal-cell" + (!c ? " empty" : "") + (c && c.iso === todayISO ? " today" : "")}>
+              {c && (
+                <>
+                  <span className="cal-day">{c.day}</span>
+                  <div className="cal-evts">
+                    {(byDay[c.iso] || []).map((e, j) => (
+                      <span key={j} className={"cal-evt " + typeClass(e.type)} title={`${e.game ?? ""} · ${e.title}`}>
+                        <span className="cal-evt-game">{e.game}</span>
+                        <span className="cal-evt-title">{e.title}</span>
+                      </span>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="cal-legend mono">
+      <div className="cal-legend">
         <span><i className="ce-update" />점검·업데이트</span>
         <span><i className="ce-live" />방송</span>
         <span><i className="ce-collab" />콜라보</span>
         <span><i className="ce-event" />이벤트</span>
       </div>
 
-      <section className="rail-sec" style={{ marginTop: 28 }}>
-        <div className="sec-head">
-          <span className="kicker"><span className="kicker-dot" />다가오는 업데이트 일정</span>
-        </div>
+      <section className="card glass reveal" style={{ padding: "20px 22px", marginTop: 28 }}>
+        <div className="section-head"><h2 style={{ fontSize: "1.12rem" }}>다가오는 업데이트 일정</h2></div>
         {upcomingList.length === 0 ? (
-          <p className="empty mono">예정된 일정이 없습니다.</p>
+          <p className="empty">예정된 일정이 없습니다.</p>
         ) : (
           <ul className="evts">
             {upcomingList.map((e, i) => (
               <li key={i} className="evt">
-                <span className="evt-date mono" style={{ width: 52 }}>{e.date}</span>
+                <span className="evt-date">{e.date}</span>
                 <span className="evt-main">
                   <span className="evt-title">{e.title}</span>
-                  {e.game && <span className="evt-game mono">{e.game}</span>}
-                  <span className="evt-type mono">{e.type}</span>
+                  <span className="evt-tags">
+                    {e.game && <span>{e.game}</span>}
+                    {e.game && <span>·</span>}
+                    <span>{e.type}</span>
+                  </span>
                 </span>
               </li>
             ))}

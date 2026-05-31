@@ -12,18 +12,18 @@ export default async function Archive() {
   const dates = await api.issues();
   return (
     <div>
-      <div className="page-head">
-        <h1 className="page-title serif">아카이브</h1>
-        <span className="page-note mono">발행 {dates.length}판</span>
+      <div className="page-head reveal">
+        <h1>아카이브</h1>
+        <span className="note">발행 {dates.length}판</span>
       </div>
       {dates.length === 0 ? (
-        <p className="empty mono">아직 발행된 편집판이 없습니다.</p>
+        <p className="empty" style={{ marginTop: 20 }}>아직 발행된 편집판이 없습니다.</p>
       ) : (
         <ul className="archive-list">
           {dates.map((iso) => (
-            <li key={iso} className="archive-row">
+            <li key={iso} className="card glass lift reveal archive-row">
               <Link href={`/archive/${iso}`} className="archive-date">{fmt(iso)}</Link>
-              <span className="archive-meta mono">{iso}</span>
+              <span className="archive-meta">{iso}</span>
             </li>
           ))}
         </ul>

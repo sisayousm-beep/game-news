@@ -9,7 +9,7 @@ export default async function ArchiveDate({ params }: { params: Promise<{ date: 
   const D = await api.front(date);
   return (
     <div>
-      <Link className="back mono" href="/archive">← 아카이브로</Link>
+      <Link className="back" href="/archive">← 아카이브로</Link>
       <FrontView D={D} />
     </div>
   );

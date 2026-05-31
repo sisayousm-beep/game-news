@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LOGIA · 오늘의 게임 브리핑</title>
+<link rel="stylesheet" as="style" crossorigin
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+<link rel="stylesheet" href="assets/logia.css" />
+<style>
+  .shell { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---- top utility bar ---- */
+  .topbar { background: var(--surface); border-bottom: 1px solid var(--line); }
+  .util-link { display:inline-flex; align-items:center; gap:6px; font-size:.85rem; font-weight:600; color:var(--ink-sec); padding:7px 12px; border-radius:var(--r-pill); cursor:pointer; transition: background var(--t) var(--ease-out), color var(--t) var(--ease-out), transform var(--t-spring) var(--spring); }
+  .util-link:hover { background: var(--sky-softer); color: var(--primary); }
+  .util-link:active { transform: scale(.9); transition-duration:.1s; transition-timing-function:var(--ease-out); }
+
+  /* ---- game tab nav (sticky) ---- */
+  .gamenav {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(245,248,253,.82);
+    backdrop-filter: saturate(160%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .gamenav .row { display:flex; gap:6px; overflow-x:auto; padding:12px 0; position:relative; }
+  /* sliding indicator (Framer Motion layoutId equivalent) */
+  .gnav-pill {
+    position:absolute; top:12px; height:38px; border-radius:var(--r-pill);
+    background:var(--ink); z-index:0; left:0; width:0;
+    box-shadow: 0 8px 20px -8px rgba(18,26,40,.5);
+    transition: left .52s var(--spring), width .52s var(--spring);
+    will-change: left, width;
+  }
+  .gtab {
+    position:relative; z-index:1;
+    flex: 0 0 auto; display:inline-flex; align-items:center; gap:7px;
+    height:38px; padding:0 16px; border-radius:var(--r-pill);
+    font-weight:600; font-size:.9rem; color:var(--ink-sec);
+    background:transparent; border:1px solid transparent; cursor:pointer; white-space:nowrap;
+    transition: color var(--t) var(--ease-out), transform var(--t-spring) var(--spring);
+  }
+  .gtab:hover { color:var(--primary); }
+  .gtab:active { transform: scale(.93); transition-duration:.1s; transition-timing-function:var(--ease-out); }
+  .gtab.is-active { color:#fff; }
+  .gtab.is-active:hover { color:#fff; }
+  .gdot { width:7px; height:7px; border-radius:50%; }
+
+  /* ---- main grid ---- */
+  .briefing { display:grid; grid-template-columns: 1fr 348px; gap:28px; align-items:start; }
+  @media (max-width: 980px){ .briefing { grid-template-columns: 1fr; } }
+
+  .sticky-side { position: sticky; top: 78px; }
+
+  .section-head { display:flex; align-items:baseline; justify-content:space-between; margin:0 0 16px; }
+  .section-head h2 { font-size:1.32rem; font-weight:800; letter-spacing:-.03em; margin:0; }
+  .section-head .more { font-size:.82rem; font-weight:600; color:var(--primary); cursor:pointer; }
+
+  /* ---- alert chips ---- */
+  .alert-row { display:flex; gap:14px; align-items:flex-start; padding:16px; border-radius:var(--r-lg); cursor:pointer; transition: background var(--t) var(--ease-out), transform var(--t-spring) var(--spring); }
+  .alert-row:hover { background: var(--sky-softer); }
+  .alert-row:active { transform: scale(.985); transition-duration:.1s; transition-timing-function:var(--ease-out); }
+  .heat-meter { height:5px; border-radius:3px; background:var(--neu-soft); overflow:hidden; width:100%; margin-top:8px; }
+  .heat-meter > span { display:block; height:100%; background:linear-gradient(90deg,var(--sky),var(--primary)); }
+
+  /* ---- game brief card ---- */
+  .news-li { display:flex; gap:12px; align-items:center; padding:11px 0; cursor:pointer; }
+  .news-li + .news-li { border-top:1px solid var(--line); }
+  .news-rank { font-family:ui-monospace,monospace; font-size:.78rem; font-weight:700; color:var(--primary); width:18px; flex:0 0 auto; }
+  .news-title { font-size:.92rem; font-weight:600; line-height:1.4; }
+  .news-li:hover .news-title { color:var(--primary); }
+
+  /* ---- steam rows ---- */
+  .steam-row { display:flex; align-items:center; gap:12px; padding:12px 0; }
+  .steam-row + .steam-row { border-top:1px solid var(--line); }
+  .steam-thumb { width:46px; height:46px; border-radius:11px; flex:0 0 auto; }
+
+  /* ---- week schedule ---- */
+  .day-pill { display:flex; flex-direction:column; align-items:center; justify-content:center; width:42px; height:50px; border-radius:13px; background:var(--surface-2); border:1px solid var(--line); flex:0 0 auto; }
+  .day-pill .d { font-weight:800; font-size:1.05rem; line-height:1; }
+  .day-pill .w { font-size:.62rem; color:var(--muted); margin-top:3px; }
+  .day-pill.today { background:var(--primary); border-color:var(--primary); color:#fff; box-shadow:var(--sh-glow); }
+  .day-pill.today .w { color:rgba(255,255,255,.8); }
+
+  /* ---- empty state for a game with no brief today ---- */
+  .empty-brief { grid-column:1/-1; text-align:center; padding:48px 20px; color:var(--muted); }
+  .empty-brief .em-ico { font-size:1.8rem; margin-bottom:8px; }
+
+  /* ---- modal ---- */
+  #article-modal { position:fixed; inset:0; z-index:90; display:none; align-items:center; justify-content:center; padding:24px;
+    background:rgba(18,26,40,.42); backdrop-filter:blur(6px); }
+  #article-modal.open { display:flex; animation: fade .2s ease; }
+  @keyframes fade { from{opacity:0} to{opacity:1} }
+  #article-modal .sheet { background:var(--surface); border-radius:var(--r-xl); max-width:560px; width:100%; padding:26px; box-shadow:var(--sh-3);
+    animation: pop-in .32s var(--ease-out); max-height:88vh; overflow:auto; }
+  .modal-x { position:absolute; top:16px; right:18px; width:38px; height:38px; border-radius:50%; border:0; background:var(--surface); box-shadow:var(--sh-2); cursor:pointer; font-size:1.1rem; color:var(--ink-sec); }
+</style>
+</head>
+<body data-stagger>
+
+<!-- ambient light blobs (glass refraction) -->
+<div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<!-- =================== UTILITY TOPBAR =================== -->
+<div class="topbar">
+  <div class="shell" style="display:flex;align-items:center;justify-content:space-between;height:62px;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="display:flex;align-items:center;gap:9px;">
+        <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--sky),var(--primary));box-shadow:var(--sh-glow);"></div>
+        <span style="font-weight:800;font-size:1.18rem;letter-spacing:-.04em;">LOGIA</span>
+      </div>
+      <span style="height:16px;width:1px;background:var(--line-2);"></span>
+      <span style="font-size:.82rem;color:var(--muted);font-weight:500;">게임 데일리 브리핑</span>
+    </div>
+    <nav style="display:flex;align-items:center;gap:2px;">
+      <span class="util-link">🏷️ 스팀 할인</span>
+      <span class="util-link">🗓️ 캘린더</span>
+      <span class="util-link">🔍 검색</span>
+      <span class="util-link">📰 아카이브</span>
+    </nav>
+  </div>
+</div>
+
+<!-- =================== GAME TAB NAV =================== -->
+<div class="gamenav">
+  <div class="shell">
+    <div class="row no-scrollbar" data-gamenav>
+      <span class="gnav-pill" aria-hidden="true"></span>
+      <button class="gtab is-active" data-game-filter="all">전체</button>
+      <button class="gtab" data-game-filter="ba"><span class="gdot" style="background:#5DA2FF;"></span>블루 아카이브</button>
+      <button class="gtab" data-game-filter="nikke"><span class="gdot" style="background:#FB6F8C;"></span>승리의 여신 니케</button>
+      <button class="gtab" data-game-filter="ak"><span class="gdot" style="background:#F5A524;"></span>명일방주</button>
+      <button class="gtab" data-game-filter="hsr"><span class="gdot" style="background:#7C5CFF;"></span>붕괴: 스타레일</button>
+      <button class="gtab" data-game-filter="wuwa"><span class="gdot" style="background:#18B7A6;"></span>명조</button>
+      <button class="gtab" data-game-filter="dna"><span class="gdot" style="background:#2F6BFF;"></span>듀엣 나이트 어비스</button>
+      <button class="gtab" data-game-filter="bd2"><span class="gdot" style="background:#A9B4C4;"></span>브라운더스트2</button>
+    </div>
+  </div>
+</div>
+
+<!-- =================== MASTHEAD =================== -->
+<header class="shell" style="padding:42px 24px 8px;">
+  <div class="reveal" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px;">
+    <span class="eyebrow">TODAY'S BRIEFING</span>
+    <span style="color:var(--line-2);">·</span>
+    <span style="font-size:.86rem;color:var(--ink-sec);font-weight:500;">2026년 6월 1일 (월) · 제 184호</span>
+    <span class="badge badge-blue" style="margin-left:auto;">
+      <span class="badge-dot" style="background:var(--primary);"></span>
+      오전 8:00 갱신 · 지금 <span class="tnum" data-clock style="margin-left:2px;">08:00</span>
+    </span>
+  </div>
+  <h1 class="display reveal" style="font-size:clamp(2rem,5vw,3.2rem);max-width:20ch;">
+    오늘 게임가는 <span style="color:var(--primary);">신규 이벤트</span>로 분주했습니다.
+  </h1>
+  <p class="reveal" style="color:var(--ink-sec);font-size:1.04rem;line-height:1.6;max-width:62ch;margin:16px 0 0;">
+    편집국 한 줄 — 블루 아카이브 신규 학생 공개가 호평 속에 화제. 니케·명조의 콜라보 일정이 다가오고,
+    스팀에서는 Balatro가 역대 최저가를 갱신했습니다.
+  </p>
+</header>
+
+<!-- =================== BRIEFING GRID =================== -->
+<main class="shell" style="padding:28px 24px 80px;">
+<div class="briefing">
+
+  <!-- ============ MAIN COLUMN ============ -->
+  <div>
+
+    <!-- ---- LEAD STORY ---- -->
+    <article class="card glass lift reveal" data-article
+        data-game="블루 아카이브" data-tag="신규캐릭터" data-time="08:00 · 공식"
+        data-title="신규 학생 ‘유즈(수영복)’ 공개 — 여름 이벤트 ‘블루 라군’ 동시 발표"
+        data-summary="블루 아카이브가 여름 시즌 신규 학생과 한정 이벤트 ‘블루 라군’을 공식 공개했습니다. 신규 학생은 폭발 속성 딜러로, 광역 스킬 성능이 부각됩니다. 커뮤니티 반응은 디자인·성능 모두 긍정적이며, 픽업 가챠 일정은 6월 5일 방송에서 안내될 예정입니다."
+        style="overflow:hidden;cursor:pointer;margin-bottom:24px;">
+      <div class="kv" data-label="KEY VISUAL · 1면 · 블루 아카이브" style="height:300px;"></div>
+      <div style="padding:24px 26px 26px;">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap;">
+          <span class="badge badge-blue"><span class="badge-dot" style="background:var(--primary);"></span>LEAD · 블루 아카이브</span>
+          <span class="badge" style="background:var(--warn-soft);color:#9A6200;">신규캐릭터</span>
+          <span style="color:var(--muted);font-size:.8rem;margin-left:auto;">공식 · 08:00</span>
+        </div>
+        <h2 style="font-size:1.62rem;font-weight:800;letter-spacing:-.03em;line-height:1.18;margin:0 0 12px;">
+          신규 학생 ‘유즈(수영복)’ 공개 — 여름 이벤트 ‘블루 라군’ 동시 발표
+        </h2>
+        <p class="lede-body" style="margin:0;">
+          블루 아카이브가 여름 시즌 신규 학생과 한정 이벤트를 공식 공개했습니다. 신규 학생은 폭발 속성
+          딜러로 광역 스킬 성능이 부각되며, 디자인·성능 모두 호평입니다. 픽업 일정은 6월 5일 방송에서…
+        </p>
+        <span style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;color:var(--primary);font-weight:700;font-size:.9rem;">
+          요약 모달 열기 →
+        </span>
+      </div>
+    </article>
+
+    <!-- ---- 주요 사건 감지 (AI) ---- -->
+    <section class="card glass reveal" style="padding:22px 24px;margin-bottom:24px;" data-stagger>
+      <div class="section-head">
+        <h2>⚡ 주요 사건 감지</h2>
+        <span class="more">AI 분석 · 크로스 게임</span>
+      </div>
+      <div>
+        <div class="alert-row reveal" data-article data-game="명일방주" data-tag="밸런스"
+          data-time="화제도 88" data-title="명일방주 신규 6성 밸런스 논란"
+          data-summary="신규 6성 오퍼레이터의 성능이 기존 메타를 크게 흔들면서 밸런스 논쟁이 확산되고 있습니다. 일부 유저는 파워 인플레를 우려하는 반면, 신규 컨텐츠 난이도 대응에는 긍정적이라는 평가도 공존합니다.">
+          <span class="badge badge-warn" style="flex:0 0 auto;margin-top:2px;">주의</span>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:700;font-size:.96rem;">명일방주 신규 6성 밸런스 논란</div>
+            <div style="font-size:.82rem;color:var(--ink-sec);margin-top:3px;">파워 인플레 우려 vs 고난도 대응 긍정 — 의견 양분</div>
+            <div class="heat-meter"><span style="width:88%"></span></div>
+          </div>
+          <div style="text-align:right;flex:0 0 auto;"><div style="font-size:.7rem;color:var(--muted);">화제도</div><div class="tnum" style="font-weight:800;color:var(--primary);">88</div></div>
+        </div>
+        <div class="alert-row reveal" data-article data-game="니케" data-tag="운영"
+          data-time="화제도 64" data-title="니케 보상 지급 오류 → 운영 사과 공지"
+          data-summary="이벤트 보상 지급 과정에서 일부 누락이 발생해 운영진이 사과 공지와 함께 보상안을 안내했습니다. 빠른 대응에 대한 긍정 반응과 재발 방지를 요구하는 목소리가 함께 나오고 있습니다.">
+          <span class="badge badge-watch" style="flex:0 0 auto;margin-top:2px;">관찰</span>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:700;font-size:.96rem;">니케 보상 지급 오류 → 운영 사과</div>
+            <div style="font-size:.82rem;color:var(--ink-sec);margin-top:3px;">빠른 보상 공지로 여론 진정세, 재발 방지 요구</div>
+            <div class="heat-meter"><span style="width:64%"></span></div>
+          </div>
+          <div style="text-align:right;flex:0 0 auto;"><div style="font-size:.7rem;color:var(--muted);">화제도</div><div class="tnum" style="font-weight:800;color:var(--primary);">64</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- 게임별 브리핑 카드 ---- -->
+    <div class="section-head reveal">
+      <h2>게임별 브리핑</h2>
+      <span class="more">상위 뉴스 · 여론 · 다음 일정</span>
+    </div>
+
+    <div class="grid reveal" data-brief-grid style="display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:20px;" data-stagger>
+      <div class="empty-brief" data-empty hidden><div class="em-ico">🕊️</div><div style="font-weight:700;color:var(--ink-sec);">오늘 이 게임의 브리핑은 준비 중이에요</div><div style="font-size:.85rem;margin-top:4px;">새 소식이 수집되면 이곳에 먼저 올라옵니다.</div></div>
+
+      <!-- 블루 아카이브 -->
+      <article class="card glass lift reveal brief-card" data-game-key="ba" style="padding:20px 22px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span class="gdot" style="width:9px;height:9px;background:#5DA2FF;"></span>
+          <h3 style="font-size:1.08rem;font-weight:800;margin:0;letter-spacing:-.02em;">블루 아카이브</h3>
+          <span class="badge badge-blue" style="margin-left:auto;">메인</span>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div class="news-li" data-article data-game="블루 아카이브" data-tag="이벤트" data-time="공식 · 08:00" data-title="여름 이벤트 ‘블루 라군’ 공지" data-summary="여름 한정 이벤트 ‘블루 라군’이 공지되었습니다. 신규 스토리와 한정 가챠, 로그인 보상이 포함됩니다.">
+            <span class="news-rank">01</span><span class="news-title">여름 이벤트 ‘블루 라군’ 공지</span>
+          </div>
+          <div class="news-li" data-article data-game="블루 아카이브" data-tag="신규캐릭터" data-time="인벤 · 09:10" data-title="신규 학생 성능 프리뷰" data-summary="신규 학생의 스킬 계수와 광역 딜 성능에 대한 프리뷰가 정리되었습니다.">
+            <span class="news-rank">02</span><span class="news-title">신규 학생 성능 프리뷰 정리</span>
+          </div>
+          <div class="news-li" data-article data-game="블루 아카이브" data-tag="방송" data-time="공식 X · 10:00" data-title="6월 5일 공식 방송 예고" data-summary="6월 5일 공식 방송에서 픽업 일정과 추가 업데이트 정보가 공개될 예정입니다.">
+            <span class="news-rank">03</span><span class="news-title">6월 5일 공식 방송 예고</span>
+          </div>
+        </div>
+        <div class="sentiment" style="margin-bottom:8px;"><span class="s-pos" data-fill="62"></span><span class="s-neu" data-fill="25"></span><span class="s-neg" data-fill="13"></span></div>
+        <div style="display:flex;justify-content:space-between;font-size:.74rem;font-weight:600;margin-bottom:14px;">
+          <span style="color:var(--pos);">긍정 62%</span><span style="color:var(--neu);">중립 25%</span><span style="color:var(--neg);">부정 13%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--sky-softer);border-radius:var(--r-sm);">
+          <span style="font-size:.72rem;color:var(--muted);font-weight:600;">다음 일정</span>
+          <span style="font-size:.84rem;font-weight:700;">6/3 점검</span>
+          <span style="font-size:.84rem;color:var(--ink-sec);margin-left:auto;">6/5 방송</span>
+        </div>
+      </article>
+
+      <!-- 니케 -->
+      <article class="card glass lift reveal brief-card" data-game-key="nikke" style="padding:20px 22px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span class="gdot" style="width:9px;height:9px;background:#FB6F8C;"></span>
+          <h3 style="font-size:1.08rem;font-weight:800;margin:0;letter-spacing:-.02em;">승리의 여신 니케</h3>
+          <span class="badge" style="margin-left:auto;background:var(--neu-soft);color:var(--ink-sec);">라이브</span>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div class="news-li" data-article data-game="니케" data-tag="콜라보" data-time="공식 · 07:40" data-title="신규 콜라보 티저 공개" data-summary="대형 콜라보 티저가 공개되며 커뮤니티가 들썩이고 있습니다. 자세한 일정은 추후 공지됩니다.">
+            <span class="news-rank">01</span><span class="news-title">신규 콜라보 티저 공개</span>
+          </div>
+          <div class="news-li" data-article data-game="니케" data-tag="패치" data-time="공식 · 08:30" data-title="6.2 패치노트 — 편의성 개선" data-summary="인터페이스 편의성과 자동 전투 옵션이 개선되는 6.2 패치노트가 공개되었습니다.">
+            <span class="news-rank">02</span><span class="news-title">6.2 패치노트 — 편의성 개선</span>
+          </div>
+          <div class="news-li" data-article data-game="니케" data-tag="운영" data-time="공식 · 09:00" data-title="보상 지급 오류 사과 공지" data-summary="보상 지급 오류에 대한 사과와 보상안이 공지되었습니다.">
+            <span class="news-rank">03</span><span class="news-title">보상 지급 오류 사과 공지</span>
+          </div>
+        </div>
+        <div class="sentiment" style="margin-bottom:8px;"><span class="s-pos" data-fill="48"></span><span class="s-neu" data-fill="30"></span><span class="s-neg" data-fill="22"></span></div>
+        <div style="display:flex;justify-content:space-between;font-size:.74rem;font-weight:600;margin-bottom:14px;">
+          <span style="color:var(--pos);">긍정 48%</span><span style="color:var(--neu);">중립 30%</span><span style="color:var(--neg);">부정 22%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--sky-softer);border-radius:var(--r-sm);">
+          <span style="font-size:.72rem;color:var(--muted);font-weight:600;">다음 일정</span>
+          <span style="font-size:.84rem;font-weight:700;">6/4 업데이트</span>
+          <span style="font-size:.84rem;color:var(--ink-sec);margin-left:auto;">6/7 콜라보</span>
+        </div>
+      </article>
+
+      <!-- 명조 -->
+      <article class="card glass lift reveal brief-card" data-game-key="wuwa" style="padding:20px 22px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span class="gdot" style="width:9px;height:9px;background:#18B7A6;"></span>
+          <h3 style="font-size:1.08rem;font-weight:800;margin:0;letter-spacing:-.02em;">명조: 워더링 웨이브</h3>
+          <span class="badge" style="margin-left:auto;background:var(--neu-soft);color:var(--ink-sec);">라이브</span>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div class="news-li" data-article data-game="명조" data-tag="신규캐릭터" data-time="공식 · 08:10" data-title="신규 5성 공명자 빌드 공개" data-summary="신규 5성 공명자의 추천 무기·에코 세트·스킬 우선순위가 정리되었습니다.">
+            <span class="news-rank">01</span><span class="news-title">신규 5성 공명자 빌드 공개</span>
+          </div>
+          <div class="news-li" data-article data-game="명조" data-tag="로드맵" data-time="공식 · 08:50" data-title="2.x 로드맵 발표" data-summary="다음 메이저 버전의 신규 지역과 캐릭터 라인업 로드맵이 공개되었습니다.">
+            <span class="news-rank">02</span><span class="news-title">2.x 로드맵 발표</span>
+          </div>
+          <div class="news-li" data-article data-game="명조" data-tag="이벤트" data-time="인벤 · 09:30" data-title="한정 이벤트 보상 정리" data-summary="진행 중인 한정 이벤트의 보상과 효율 루트가 정리되었습니다.">
+            <span class="news-rank">03</span><span class="news-title">한정 이벤트 보상 정리</span>
+          </div>
+        </div>
+        <div class="sentiment" style="margin-bottom:8px;"><span class="s-pos" data-fill="71"></span><span class="s-neu" data-fill="20"></span><span class="s-neg" data-fill="9"></span></div>
+        <div style="display:flex;justify-content:space-between;font-size:.74rem;font-weight:600;margin-bottom:14px;">
+          <span style="color:var(--pos);">긍정 71%</span><span style="color:var(--neu);">중립 20%</span><span style="color:var(--neg);">부정 9%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--sky-softer);border-radius:var(--r-sm);">
+          <span style="font-size:.72rem;color:var(--muted);font-weight:600;">다음 일정</span>
+          <span style="font-size:.84rem;font-weight:700;">6/6 신규 버전</span>
+          <span style="font-size:.84rem;color:var(--ink-sec);margin-left:auto;">6/2 점검</span>
+        </div>
+      </article>
+
+      <!-- 명일방주 -->
+      <article class="card glass lift reveal brief-card" data-game-key="ak" style="padding:20px 22px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span class="gdot" style="width:9px;height:9px;background:#F5A524;"></span>
+          <h3 style="font-size:1.08rem;font-weight:800;margin:0;letter-spacing:-.02em;">명일방주</h3>
+          <span class="badge" style="margin-left:auto;background:var(--neu-soft);color:var(--ink-sec);">라이브</span>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div class="news-li" data-article data-game="명일방주" data-tag="신규캐릭터" data-time="공식 · 07:55" data-title="신규 6성 오퍼레이터 공개" data-summary="신규 6성 오퍼레이터가 공개되며 성능에 대한 기대와 우려가 교차하고 있습니다.">
+            <span class="news-rank">01</span><span class="news-title">신규 6성 오퍼레이터 공개</span>
+          </div>
+          <div class="news-li" data-article data-game="명일방주" data-tag="이벤트" data-time="공식 · 08:40" data-title="신규 사이드 스토리 일정" data-summary="신규 사이드 스토리 이벤트 일정과 보상 정보가 공지되었습니다.">
+            <span class="news-rank">02</span><span class="news-title">신규 사이드 스토리 일정</span>
+          </div>
+          <div class="news-li" data-article data-game="명일방주" data-tag="패치" data-time="아카 · 09:20" data-title="밸런스 조정 화제글" data-summary="밸런스 조정에 대한 커뮤니티 화제글이 다수 올라오며 토론이 이어지고 있습니다.">
+            <span class="news-rank">03</span><span class="news-title">밸런스 조정 화제글</span>
+          </div>
+        </div>
+        <div class="sentiment" style="margin-bottom:8px;"><span class="s-pos" data-fill="40"></span><span class="s-neu" data-fill="28"></span><span class="s-neg" data-fill="32"></span></div>
+        <div style="display:flex;justify-content:space-between;font-size:.74rem;font-weight:600;margin-bottom:14px;">
+          <span style="color:var(--pos);">긍정 40%</span><span style="color:var(--neu);">중립 28%</span><span style="color:var(--neg);">부정 32%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--sky-softer);border-radius:var(--r-sm);">
+          <span style="font-size:.72rem;color:var(--muted);font-weight:600;">다음 일정</span>
+          <span style="font-size:.84rem;font-weight:700;">6/3 업데이트</span>
+          <span style="font-size:.84rem;color:var(--ink-sec);margin-left:auto;">6/8 이벤트</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sticky-side">
+
+    <!-- ---- 커뮤니티 감성 (donut) ---- -->
+    <section class="card glass reveal" style="padding:22px 22px 24px;margin-bottom:20px;">
+      <div class="section-head" style="margin-bottom:8px;"><h2 style="font-size:1.12rem;">커뮤니티 반응</h2></div>
+      <p style="font-size:.78rem;color:var(--muted);margin:0 0 14px;">오늘 수집된 게시글 종합</p>
+      <div style="display:flex;align-items:center;gap:20px;">
+        <svg width="116" height="116" viewBox="0 0 120 120" style="flex:0 0 auto;transform:rotate(-90deg);">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="var(--neu-soft)" stroke-width="16"/>
+          <!-- pos 58% neu 27% neg 15% ; circumference=314.159 -->
+          <circle cx="60" cy="60" r="50" fill="none" stroke="var(--pos)" stroke-width="16" stroke-linecap="round"
+            stroke-dasharray="182 314" stroke-dashoffset="0" data-ring="58"/>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="var(--neu)" stroke-width="16"
+            stroke-dasharray="85 314" stroke-dashoffset="-184" data-ring="27"/>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="var(--neg)" stroke-width="16" stroke-linecap="round"
+            stroke-dasharray="47 314" stroke-dashoffset="-271" data-ring="15"/>
+        </svg>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><span class="badge-dot" style="background:var(--pos);width:9px;height:9px;"></span><span style="font-size:.84rem;font-weight:600;flex:1;">긍정</span><span class="tnum" style="font-weight:800;">58%</span></div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><span class="badge-dot" style="background:var(--neu);width:9px;height:9px;"></span><span style="font-size:.84rem;font-weight:600;flex:1;">중립</span><span class="tnum" style="font-weight:800;">27%</span></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span class="badge-dot" style="background:var(--neg);width:9px;height:9px;"></span><span style="font-size:.84rem;font-weight:600;flex:1;">부정</span><span class="tnum" style="font-weight:800;">15%</span></div>
+        </div>
+      </div>
+      <div style="margin-top:18px;border-top:1px solid var(--line);padding-top:14px;">
+        <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:10px;"><span class="badge badge-pos" style="flex:0 0 auto;">긍정</span><span style="font-size:.84rem;color:var(--ink-sec);line-height:1.4;">신규 캐릭터 디자인 호평</span></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span class="badge badge-neg" style="flex:0 0 auto;">부정</span><span style="font-size:.84rem;color:var(--ink-sec);line-height:1.4;">일부 밸런스·보상 정책 논란</span></div>
+      </div>
+    </section>
+
+    <!-- ---- 스팀 할인 보드 ---- -->
+    <section class="card glass reveal" style="padding:22px 22px 16px;margin-bottom:20px;">
+      <div class="section-head"><h2 style="font-size:1.12rem;">🏷️ 스팀 할인</h2><span class="more">전체 →</span></div>
+      <div class="steam-row">
+        <div class="steam-thumb kv" data-label="" style="background-color:#1b2838;"></div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-weight:700;font-size:.9rem;">Balatro</div>
+          <div class="tnum" style="font-size:.74rem;color:var(--muted);text-decoration:line-through;">₩25,000</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="badge badge-low" style="margin-bottom:3px;">-50% · 최저가</span>
+          <div class="tnum" style="font-weight:800;color:var(--primary);">₩12,500</div>
+        </div>
+      </div>
+      <div class="steam-row">
+        <div class="steam-thumb kv" data-label="" style="background-color:#2a3f5f;"></div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-weight:700;font-size:.9rem;">Baldur's Gate 3</div>
+          <div class="tnum" style="font-size:.74rem;color:var(--muted);text-decoration:line-through;">₩66,000</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="badge" style="background:var(--sky-soft);color:var(--primary-ink);margin-bottom:3px;">-20%</span>
+          <div class="tnum" style="font-weight:800;color:var(--primary);">₩52,800</div>
+        </div>
+      </div>
+      <div class="steam-row">
+        <div class="steam-thumb kv" data-label="" style="background-color:#3a2f5f;"></div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-weight:700;font-size:.9rem;">Metaphor: ReFantazio</div>
+          <div class="tnum" style="font-size:.74rem;color:var(--muted);text-decoration:line-through;">₩74,800</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="badge badge-low" style="margin-bottom:3px;">-34% · 최저가</span>
+          <div class="tnum" style="font-weight:800;color:var(--primary);">₩49,300</div>
+        </div>
+      </div>
+      <div class="steam-row" style="border-top:1px solid var(--line);">
+        <div class="steam-thumb kv" data-label="" style="background-color:#1f3a2f;"></div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-weight:700;font-size:.9rem;">Dave the Diver</div>
+          <div class="tnum" style="font-size:.74rem;color:var(--muted);text-decoration:line-through;">₩24,000</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="badge" style="background:var(--sky-soft);color:var(--primary-ink);margin-bottom:3px;">-30%</span>
+          <div class="tnum" style="font-weight:800;color:var(--primary);">₩16,800</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- 이번 주 일정 ---- -->
+    <section class="card glass reveal" style="padding:22px 22px 20px;">
+      <div class="section-head"><h2 style="font-size:1.12rem;">🗓️ 이번 주 일정</h2><span class="more">캘린더 →</span></div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;gap:13px;align-items:center;">
+          <div class="day-pill today"><span class="d">1</span><span class="w">MON</span></div>
+          <div style="flex:1;"><div style="font-weight:700;font-size:.88rem;">데일리 브리핑 갱신</div><div style="font-size:.76rem;color:var(--muted);">오전 8:00 · 전체</div></div>
+        </div>
+        <div style="display:flex;gap:13px;align-items:center;">
+          <div class="day-pill"><span class="d">2</span><span class="w">TUE</span></div>
+          <div style="flex:1;"><div style="font-weight:700;font-size:.88rem;">명조 정기 점검</div><div style="font-size:.76rem;color:var(--muted);"><span style="color:var(--watch);font-weight:700;">점검</span> · 명조</div></div>
+        </div>
+        <div style="display:flex;gap:13px;align-items:center;">
+          <div class="day-pill"><span class="d">3</span><span class="w">WED</span></div>
+          <div style="flex:1;"><div style="font-weight:700;font-size:.88rem;">블루 아카이브 업데이트</div><div style="font-size:.76rem;color:var(--muted);"><span style="color:var(--primary);font-weight:700;">업데이트</span> · 블아</div></div>
+        </div>
+        <div style="display:flex;gap:13px;align-items:center;">
+          <div class="day-pill"><span class="d">5</span><span class="w">FRI</span></div>
+          <div style="flex:1;"><div style="font-weight:700;font-size:.88rem;">블루 아카이브 공식 방송</div><div style="font-size:.76rem;color:var(--muted);"><span style="color:var(--pos);font-weight:700;">방송</span> · 블아</div></div>
+        </div>
+        <div style="display:flex;gap:13px;align-items:center;">
+          <div class="day-pill"><span class="d">7</span><span class="w">SUN</span></div>
+          <div style="flex:1;"><div style="font-weight:700;font-size:.88rem;">니케 콜라보 시작</div><div style="font-size:.76rem;color:var(--muted);"><span style="color:var(--neg);font-weight:700;">콜라보</span> · 니케</div></div>
+        </div>
+      </div>
+    </section>
+
+  </aside>
+</div>
+</main>
+
+<footer class="shell" style="padding:40px 24px 64px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+  <span style="font-weight:800;color:var(--ink);letter-spacing:-.03em;">LOGIA</span>
+  <span>게임 데일리 브리핑 · 매일 오전 8시 갱신</span>
+  <a href="LOGIA Design System.html" style="color:var(--primary);text-decoration:none;font-weight:600;margin-left:auto;">디자인 시스템 →</a>
+</footer>
+
+<!-- =================== MODAL =================== -->
+<div id="article-modal" role="dialog" aria-modal="true">
+  <div class="sheet">
+    <button class="modal-x" data-modal-close aria-label="닫기">✕</button>
+    <div data-modal-body></div>
+  </div>
+</div>
+
+<script src="assets/logia.js"></script>
+<script>
+  /* animate donut rings on reveal */
+  (function(){
+    const rings = document.querySelectorAll('[data-ring]');
+    if(!rings.length) return;
+    rings.forEach(r=>{ r.style.transition='stroke-dasharray .9s cubic-bezier(.22,1,.36,1)'; });
+  })();
+
+  /* =========================================================
+     Game nav — sliding indicator (layoutId) + spring filter
+     ========================================================= */
+  (function(){
+    const nav  = document.querySelector('[data-gamenav]');
+    if(!nav) return;
+    const pill = nav.querySelector('.gnav-pill');
+    const tabs = [...nav.querySelectorAll('.gtab')];
+    const grid = document.querySelector('[data-brief-grid]');
+    const cards = grid ? [...grid.querySelectorAll('.brief-card')] : [];
+    const empty = grid ? grid.querySelector('[data-empty]') : null;
+
+    function movePill(tab){
+      if(!pill || !tab) return;
+      pill.style.left  = tab.offsetLeft + 'px';
+      pill.style.width = tab.offsetWidth + 'px';
+    }
+
+    function filter(key){
+      if(!grid) return;
+      let shown = 0;
+      cards.forEach(card=>{
+        const match = key === 'all' || card.dataset.gameKey === key;
+        if(match){
+          card.style.display = '';
+          // restart re-entry via inline animation (beats .reveal.in specificity)
+          card.style.animation = 'none'; void card.offsetWidth;
+          card.style.animation = 'swap-in .44s var(--spring-soft) both';
+          card.style.animationDelay = (shown * 55) + 'ms';
+          shown++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      if(empty){
+        if(shown === 0){ empty.hidden = false; empty.classList.remove('swap-in'); void empty.offsetWidth; empty.classList.add('swap-in'); }
+        else empty.hidden = true;
+      }
+    }
+
+    function activate(tab){
+      tabs.forEach(t=> t.classList.toggle('is-active', t===tab));
+      movePill(tab);
+      filter(tab.dataset.gameFilter);
+      // keep the chosen tab comfortably in view on mobile
+      tab.scrollIntoView ? null : null;
+    }
+
+    tabs.forEach(t=> t.addEventListener('click', ()=> activate(t)));
+
+    const init = nav.querySelector('.gtab.is-active') || tabs[0];
+    requestAnimationFrame(()=> movePill(init));
+    window.addEventListener('resize', ()=> movePill(nav.querySelector('.gtab.is-active') || tabs[0]));
+    // re-measure once webfont settles (Korean glyph widths shift layout)
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(()=> movePill(nav.querySelector('.gtab.is-active') || tabs[0])); }
+  })();
+</script>
+</body>
+</html>

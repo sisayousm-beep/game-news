@@ -1,0 +1,308 @@
+/* =========================================================
+   LOGIA — Design System
+   게임 정보 큐레이션 사이트 · Bright Blue-ish · Soft & Flexible
+   ========================================================= */
+
+:root {
+  /* ---- Base / neutrals (cool soft whites & slate inks) ---- */
+  --bg:        #F5F8FD;   /* page background — cool soft white */
+  --bg-tint:   #ECF2FB;   /* alternating / inset background */
+  --surface:   #FFFFFF;   /* cards */
+  --surface-2: #FBFCFE;   /* nested surface */
+
+  --ink:    #121A28;   /* primary text — near-black, blue-slate */
+  --ink-2:  #41506650;  /* (unused token guard) */
+  --ink-sec:#475569;   /* secondary text */
+  --muted:  #8593A8;   /* tertiary / captions */
+  --line:   #E6ECF6;   /* hairline borders */
+  --line-2: #D7E0EE;   /* stronger borders */
+
+  /* ---- Primary blue identity ---- */
+  --primary:        #2F6BFF;   /* fresh azure — main */
+  --primary-strong: #1E50E0;   /* pressed / strong */
+  --primary-ink:    #16306E;   /* text on tints */
+  --sky:            #5DA2FF;   /* light sky */
+  --sky-soft:       #E7F0FF;   /* tint surface */
+  --sky-softer:     #F2F7FF;   /* faint tint */
+
+  /* ---- Sentiment ---- */
+  --pos:      #18B7A6;   /* positive — fresh teal */
+  --pos-soft: #DDF6F2;
+  --neu:      #A9B4C4;   /* neutral — gray */
+  --neu-soft: #EDF1F6;
+  --neg:      #FB6F8C;   /* negative — soft coral */
+  --neg-soft: #FFE6EB;
+
+  /* ---- Severity / status ---- */
+  --warn:      #F5A524;  /* 주의 */
+  --warn-soft: #FFF1D6;
+  --watch:     #5DA2FF;  /* 관찰 */
+  --watch-soft:#E7F0FF;
+  --low:       #18B7A6;  /* 최저가 / 좋은 할인 */
+
+  /* ---- Radii (soft, friendly) ---- */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  /* ---- Shadows (soft, blue-tinted) ---- */
+  --sh-1: 0 1px 2px rgba(18,26,40,.04), 0 2px 8px rgba(47,107,255,.05);
+  --sh-2: 0 6px 18px -8px rgba(31,67,140,.16), 0 2px 6px rgba(18,26,40,.04);
+  --sh-3: 0 18px 44px -18px rgba(31,67,140,.28), 0 6px 16px -10px rgba(18,26,40,.10);
+  --sh-glow: 0 10px 30px -10px rgba(47,107,255,.45);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(.22,1,.36,1);
+  --ease-soft: cubic-bezier(.4,.14,.3,1);
+  /* spring-ish overshoot — the "쫀득" Toss settle (≈ stiffness 300 / damping 25) */
+  --spring:      cubic-bezier(.34,1.56,.64,1);
+  --spring-soft: cubic-bezier(.4,1.3,.55,1);
+  --t-fast: .16s;
+  --t: .28s;
+  --t-slow: .5s;
+  --t-spring: .5s;
+
+  /* floating / glass shadows — air, not a hard drop */
+  --sh-float: 0 22px 50px -22px rgba(31,67,140,.32), 0 8px 22px -14px rgba(18,26,40,.12);
+  --glass-bg: rgba(255,255,255,.72);
+  --glass-line: rgba(255,255,255,.65);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  position: relative;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  letter-spacing: -.01em;
+}
+
+::selection { background: var(--sky-soft); color: var(--primary-ink); }
+
+/* ---- Ambient light blobs: gives glass something to refract ---- */
+.ambient { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.ambient i {
+  position: absolute; display: block; border-radius: 50%;
+  filter: blur(70px); opacity: .55;
+  animation: float-soft 11s var(--ease-soft) infinite;
+}
+.ambient i:nth-child(1){ width:520px;height:520px; top:-160px; left:-80px;  background:#CFE2FF; }
+.ambient i:nth-child(2){ width:440px;height:440px; top:18%;  right:-120px; background:#DAF4EF; animation-delay:-3s; }
+.ambient i:nth-child(3){ width:480px;height:480px; bottom:-180px; left:30%; background:#E4ECFF; animation-delay:-6s; }
+@media (prefers-reduced-motion: reduce){ .ambient i { animation: none; } }
+
+/* numbers / prices */
+.tnum { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+
+/* =========================================================
+   Type rhythm (strong weight contrast, human-tuned)
+   ========================================================= */
+.display {
+  font-weight: 800;
+  letter-spacing: -.035em;
+  line-height: .98;
+}
+.eyebrow {
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+.lede-body { line-height: 1.78; color: var(--ink-sec); text-wrap: pretty; }
+
+/* =========================================================
+   Surfaces & cards
+   ========================================================= */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-1);
+}
+
+/* Glass surface — light, airy, refracts the ambient blobs */
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: saturate(165%) blur(22px);
+  backdrop-filter: saturate(165%) blur(22px);
+  border: 1px solid var(--glass-line);
+  box-shadow: var(--sh-2), inset 0 1px 0 rgba(255,255,255,.6);
+}
+
+/* hover lift — spring overshoot, shadow blooms like air */
+.lift {
+  transition: transform var(--t-spring) var(--spring),
+              box-shadow var(--t) var(--ease-out),
+              border-color var(--t) var(--ease-out);
+  will-change: transform;
+}
+.lift:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sh-float);
+  border-color: var(--glass-line);
+}
+/* the magnet tap: snaps inward, then springs back out on release */
+.lift:active { transform: scale(.978) translateY(-1px); transition-duration: .12s; transition-timing-function: var(--ease-out); }
+
+/* pressable (chips/buttons) — snappy spring settle */
+.press { transition: transform var(--t-spring) var(--spring), background var(--t) var(--ease-out), color var(--t) var(--ease-out), border-color var(--t) var(--ease-out), box-shadow var(--t) var(--ease-out); }
+.press:active { transform: scale(.94); transition-duration: .1s; transition-timing-function: var(--ease-out); }
+
+/* =========================================================
+   Pills / chips / badges
+   ========================================================= */
+.chip {
+  display: inline-flex; align-items: center; gap: .4em;
+  height: 30px; padding: 0 12px;
+  border-radius: var(--r-pill);
+  font-size: .8rem; font-weight: 600;
+  background: var(--surface); color: var(--ink-sec);
+  border: 1px solid var(--line);
+  cursor: pointer; white-space: nowrap;
+}
+.chip:hover { border-color: var(--sky); color: var(--primary); background: var(--sky-softer); }
+.chip[aria-selected="true"], .chip.is-active {
+  background: var(--primary); color: #fff; border-color: var(--primary);
+  box-shadow: var(--sh-glow);
+}
+
+.badge {
+  display: inline-flex; align-items: center; gap: .35em;
+  padding: 3px 9px; border-radius: var(--r-pill);
+  font-size: .7rem; font-weight: 700; letter-spacing: .01em;
+}
+.badge-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+.badge-blue  { background: var(--sky-soft);  color: var(--primary-ink); }
+.badge-warn  { background: var(--warn-soft);  color: #9A6200; }
+.badge-watch { background: var(--watch-soft); color: var(--primary-ink); }
+.badge-pos   { background: var(--pos-soft);   color: #0B7468; }
+.badge-neg   { background: var(--neg-soft);   color: #B8344E; }
+.badge-low   { background: var(--pos-soft);   color: #0B7468; }
+
+/* =========================================================
+   Buttons
+   ========================================================= */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5em;
+  height: 44px; padding: 0 20px;
+  border-radius: var(--r-pill);
+  font-weight: 700; font-size: .92rem;
+  cursor: pointer; border: 1px solid transparent;
+  transition: transform var(--t-fast) var(--ease-out), background var(--t) var(--ease-out), box-shadow var(--t) var(--ease-out), color var(--t);
+}
+.btn:active { transform: scale(.97); }
+.btn-primary { background: var(--primary); color: #fff; box-shadow: var(--sh-glow); }
+.btn-primary:hover { background: var(--primary-strong); }
+.btn-ghost { background: var(--surface); color: var(--ink); border-color: var(--line-2); }
+.btn-ghost:hover { border-color: var(--sky); color: var(--primary); background: var(--sky-softer); }
+.btn-soft { background: var(--sky-soft); color: var(--primary-ink); }
+.btn-soft:hover { background: #D8E7FF; }
+
+/* =========================================================
+   Sentiment bar (긍정/중립/부정)
+   ========================================================= */
+.sentiment {
+  display: flex; height: 10px; width: 100%;
+  border-radius: var(--r-pill); overflow: hidden;
+  background: var(--neu-soft);
+}
+.sentiment > span {
+  display: block; height: 100%;
+  transition: width var(--t-slow) var(--ease-out);
+}
+.s-pos { background: var(--pos); }
+.s-neu { background: var(--neu); }
+.s-neg { background: var(--neg); }
+
+/* =========================================================
+   Key-visual placeholder (drop real game art here)
+   ========================================================= */
+.kv {
+  position: relative; overflow: hidden;
+  background-color: var(--sky-softer);
+  background-image:
+    repeating-linear-gradient(135deg,
+      rgba(47,107,255,.06) 0 10px,
+      rgba(47,107,255,.02) 10px 20px);
+  display: flex; align-items: flex-end;
+}
+.kv::after {
+  content: attr(data-label);
+  position: absolute; left: 12px; top: 12px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: .64rem; letter-spacing: .05em;
+  color: var(--primary); opacity: .55;
+  background: rgba(255,255,255,.7); padding: 3px 7px; border-radius: 6px;
+  backdrop-filter: blur(4px);
+}
+
+/* =========================================================
+   Animations
+   ========================================================= */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* elements start hidden; .in is added by IntersectionObserver */
+.reveal { opacity: 0; }
+.reveal.in {
+  animation: reveal-up .62s var(--ease-out) both;
+  animation-delay: var(--rv-delay, 0ms);
+}
+
+@keyframes float-soft {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-6px); }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(.94) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes draw-ring {
+  from { stroke-dashoffset: var(--ring-len); }
+  to   { stroke-dashoffset: var(--ring-off); }
+}
+
+@keyframes shimmer {
+  to { background-position: 200% 0; }
+}
+
+/* content swap on tab change — fade + gentle rise, like AnimatePresence */
+@keyframes swap-in {
+  from { opacity: 0; transform: translateY(10px) scale(.992); }
+  to   { opacity: 1; transform: none; }
+}
+.swap-in { animation: swap-in .42s var(--spring-soft) both; }
+
+/* tab underline indicator */
+.tabs { position: relative; }
+.tab-ink {
+  position: absolute; bottom: -1px; height: 2.5px; border-radius: 2px;
+  background: var(--primary);
+  transition: left var(--t) var(--ease-out), width var(--t) var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.in { animation: none !important; opacity: 1 !important; }
+  .lift, .press, .btn { transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* utilities */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.hairline { border-bottom: 1px solid var(--line); }
