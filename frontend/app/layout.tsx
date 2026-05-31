@@ -8,7 +8,7 @@ import { api, type GameNav } from "@/lib/api";
 export const metadata: Metadata = {
   title: "LOGIA — 게임 데일리 브리핑",
   description:
-    "게임 관련 최신 뉴스·사건·이벤트·커뮤니티 반응·스팀 할인을 매일 정리하는 게임 정보 사이트",
+    "게임 관련 최신 뉴스·사건·이벤트·스팀 할인을 매일 정리하고, 캐릭터 공략을 제공하는 게임 정보 사이트",
 };
 
 async function loadGames(): Promise<{ games: GameNav[]; ok: boolean }> {

@@ -1,4 +1,4 @@
-import type { Sentiment, Article, EventItem, SteamRow, Discussion } from "@/lib/api";
+import type { Article, EventItem, SteamRow } from "@/lib/api";
 
 export function Tag({ children, tone }: { children: React.ReactNode; tone?: "blue" | "warn" | "pos" | "neg" | "neu" }) {
   return <span className={"badge badge-" + (tone || "neu")}>{children}</span>;
@@ -10,25 +10,6 @@ const SRC_MAP: Record<string, string> = {
 };
 export function SourceDot({ source }: { source: string }) {
   return <span className="src-badge" title={source}>{SRC_MAP[source] || "·"}</span>;
-}
-
-export function SentimentBar({ s, legend = false }: { s: Sentiment; legend?: boolean }) {
-  return (
-    <div>
-      <div className="sentiment">
-        <span className="s-pos" data-fill={s.pos} />
-        <span className="s-neu" data-fill={s.neu} />
-        <span className="s-neg" data-fill={s.neg} />
-      </div>
-      {legend && (
-        <div className="sent-legend">
-          <span className="lp">긍정 {s.pos}%</span>
-          <span className="ln">중립 {s.neu}%</span>
-          <span className="lg">부정 {s.neg}%</span>
-        </div>
-      )}
-    </div>
-  );
 }
 
 const ACCENT_TAGS = new Set(["이벤트", "신규캐릭터", "콜라보"]);
@@ -82,35 +63,6 @@ export function EventRow({ e, game }: { e: EventItem; game?: string | null }) {
         </span>
       </span>
     </li>
-  );
-}
-
-function discTone(s: string) {
-  return s === "긍정" ? "pos" : s === "부정" ? "neg" : "neu";
-}
-
-export function DiscussionList({ items }: { items: Discussion[] }) {
-  if (!items.length) return null;
-  return (
-    <div className="disc-list">
-      {items.map((d, i) => (
-        <div key={i} className={"disc-card " + discTone(d.sentiment)}>
-          <div className="disc-head">
-            <span className={"badge badge-" + discTone(d.sentiment)}>{d.sentiment}</span>
-            <span className="disc-topic">{d.topic}</span>
-          </div>
-          {d.summary && <div className="disc-summary">{d.summary}</div>}
-          {(d.source || d.source_url) && (
-            <div className="disc-foot">
-              {d.source && <span className="disc-src">{d.source}</span>}
-              {d.source_url && (
-                <a className="disc-link" href={d.source_url} target="_blank" rel="noreferrer">게시글 보기 ↗</a>
-              )}
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
   );
 }
 

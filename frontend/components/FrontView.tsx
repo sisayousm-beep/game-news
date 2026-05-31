@@ -3,14 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { FrontPage, Article, GameBrief } from "@/lib/api";
-import { SentimentBar, SteamLine, DiscussionList } from "@/components/atoms";
+import { SteamLine } from "@/components/atoms";
 import ArticleModal from "@/components/ArticleModal";
 
 const DOT: Record<string, string> = {
   bluearchive: "#5DA2FF", nikke: "#FB6F8C", arknights: "#F5A524", starrail: "#7C5CFF",
   wuwa: "#18B7A6", duet: "#2F6BFF", silverpelis: "#9A6CFF", brown2: "#A9B4C4",
 };
-const C = 2 * Math.PI * 50; // donut circumference
 
 function leadAsArticle(D: FrontPage): Article {
   const L = D.lead;
@@ -31,26 +30,6 @@ const WD = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 export default function FrontView({ D }: { D: FrontPage }) {
   const [open, setOpen] = useState<Article | null>(null);
   const hasIssue = D.meta.issue > 0 && D.games.length > 0;
-
-  // 커뮤니티 종합(게임 평균)
-  const agg = (() => {
-    if (!D.games.length) return { pos: 0, neu: 0, neg: 0 };
-    const sum = D.games.reduce(
-      (a, g) => ({ pos: a.pos + g.sentiment.pos, neu: a.neu + g.sentiment.neu, neg: a.neg + g.sentiment.neg }),
-      { pos: 0, neu: 0, neg: 0 },
-    );
-    const n = D.games.length;
-    return { pos: Math.round(sum.pos / n), neu: Math.round(sum.neu / n), neg: Math.round(sum.neg / n) };
-  })();
-  const posL = (agg.pos / 100) * C, neuL = (agg.neu / 100) * C, negL = (agg.neg / 100) * C;
-
-  // 대표 여론(긍정/부정) — 게임명을 출처에 덧붙여 카드로 표시
-  const allDisc = D.games.flatMap((g) =>
-    g.discussions.map((d) => ({ ...d, source: [g.name, d.source].filter(Boolean).join(" · ") })),
-  );
-  const posNote = allDisc.find((d) => d.sentiment === "긍정");
-  const negNote = allDisc.find((d) => d.sentiment === "부정");
-  const frontNotes = [posNote, negNote].filter(Boolean) as typeof allDisc;
 
   // 이번 주 일정
   const year = Number((D.meta.dateShort || "").slice(0, 4)) || new Date().getFullYear();
@@ -137,7 +116,7 @@ export default function FrontView({ D }: { D: FrontPage }) {
             {/* 게임별 브리핑 */}
             <div className="section-head reveal">
               <h2>게임별 브리핑</h2>
-              <span className="more">상위 뉴스 · 여론 · 다음 일정</span>
+              <span className="more">상위 뉴스 · 다음 일정</span>
             </div>
             <div className="brief-grid" data-stagger>
               {D.games.map((g) => (
@@ -148,30 +127,6 @@ export default function FrontView({ D }: { D: FrontPage }) {
 
           {/* ============ SIDEBAR ============ */}
           <aside className="sticky-side">
-            {/* community donut */}
-            <section className="card glass reveal" style={{ padding: "22px 22px 24px" }}>
-              <div className="section-head" style={{ marginBottom: 8 }}><h2 style={{ fontSize: "1.12rem" }}>커뮤니티 반응</h2></div>
-              <p style={{ fontSize: ".78rem", color: "var(--muted)", margin: "0 0 14px" }}>오늘 수집된 게시글 종합</p>
-              <div className="donut-wrap">
-                <svg className="donut" width="116" height="116" viewBox="0 0 120 120">
-                  <circle cx="60" cy="60" r="50" fill="none" stroke="var(--neu-soft)" strokeWidth="16" />
-                  <circle cx="60" cy="60" r="50" fill="none" stroke="var(--pos)" strokeWidth="16" strokeLinecap="round" strokeDasharray={`${posL} ${C}`} strokeDashoffset="0" />
-                  <circle cx="60" cy="60" r="50" fill="none" stroke="var(--neu)" strokeWidth="16" strokeDasharray={`${neuL} ${C}`} strokeDashoffset={-posL} />
-                  <circle cx="60" cy="60" r="50" fill="none" stroke="var(--neg)" strokeWidth="16" strokeLinecap="round" strokeDasharray={`${negL} ${C}`} strokeDashoffset={-(posL + neuL)} />
-                </svg>
-                <div className="donut-legend">
-                  <div className="row"><span className="badge-dot" style={{ background: "var(--pos)", width: 9, height: 9 }} /><span className="nm">긍정</span><span className="pc tnum">{agg.pos}%</span></div>
-                  <div className="row"><span className="badge-dot" style={{ background: "var(--neu)", width: 9, height: 9 }} /><span className="nm">중립</span><span className="pc tnum">{agg.neu}%</span></div>
-                  <div className="row"><span className="badge-dot" style={{ background: "var(--neg)", width: 9, height: 9 }} /><span className="nm">부정</span><span className="pc tnum">{agg.neg}%</span></div>
-                </div>
-              </div>
-              {frontNotes.length > 0 && (
-                <div className="sent-notes">
-                  <DiscussionList items={frontNotes} />
-                </div>
-              )}
-            </section>
-
             {/* steam board */}
             <section className="card glass reveal" style={{ padding: "22px 22px 16px" }}>
               <div className="section-head"><h2 style={{ fontSize: "1.12rem" }}>🏷️ 스팀 할인</h2><Link className="more" href="/steam-sales">전체 →</Link></div>
@@ -237,7 +192,6 @@ function BriefCard({ g, onOpen }: { g: GameBrief; onOpen: (a: Article) => void }
         ))}
         {g.news.length === 0 && <li style={{ fontSize: ".86rem", color: "var(--muted)", padding: "8px 0" }}>오늘 새 소식이 없습니다.</li>}
       </ul>
-      <div className="brief-foot-sent"><SentimentBar s={g.sentiment} legend /></div>
       {g.events[0] && (
         <div className="brief-next">
           <span className="lab">다음 일정</span>
